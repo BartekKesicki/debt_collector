@@ -1,4 +1,5 @@
 import 'package:debt_collector/login/bloc.dart';
+import 'package:debt_collector/utils/app_strings.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -74,8 +75,8 @@ class _LoginPageState extends State<LoginPage> {
                 decoration: InputDecoration(
                     errorText: userErrorTextMessage,
                     border: OutlineInputBorder(),
-                    hintText: "Enter Email",
-                    labelText: "Email"
+                    hintText: AppStrings.enterEmail,
+                    labelText: AppStrings.email
                 ),
               ),
               padding: EdgeInsets.all(10.0),
@@ -92,8 +93,8 @@ class _LoginPageState extends State<LoginPage> {
                 decoration: InputDecoration(
                     errorText: passwordErrorTextMessage,
                     border: OutlineInputBorder(),
-                    hintText: "Enter Password",
-                    labelText: "Password"
+                    hintText: AppStrings.enterPassword,
+                    labelText: AppStrings.password
                 ),
               ),
               padding: EdgeInsets.all(10.0),
@@ -103,7 +104,7 @@ class _LoginPageState extends State<LoginPage> {
               onPressed: () {
                 submit(context);
               },
-              child: Text("Submit"),
+              child: Text(AppStrings.submit),
             ),
             Padding(
               padding: EdgeInsets.all(20.0),
@@ -112,7 +113,7 @@ class _LoginPageState extends State<LoginPage> {
                 onPressed: () {
 //                    Navigator.push(context, MaterialPageRoute(builder: (context) => RegistrationPage()));
                 },
-                child: Text("Register"),
+                child: Text(AppStrings.register),
               ),
             )
           ],
@@ -121,11 +122,16 @@ class _LoginPageState extends State<LoginPage> {
 
   Widget buildLoginInProgressState() {
     return Center(
-      child: Text("LOADING IN PROGRESS"),
-    );
+      child: Column(
+      children: <Widget>[
+        CircularProgressIndicator(),
+        Text(AppStrings.loadingInProgress)
+      ],
+    ));
   }
 
   Widget buildLoginResponseState() {
+    //todo redirect to home page
     return Center(
       child: Text("LOGGED IN"),
     );
