@@ -1,3 +1,4 @@
+import 'package:debt_collector/home/home_page.dart';
 import 'package:debt_collector/login/bloc.dart';
 import 'package:debt_collector/utils/app_strings.dart';
 import 'package:flutter/material.dart';
@@ -45,9 +46,11 @@ class _LoginPageState extends State<LoginPage> {
             bloc: loginBloc,
             builder: (BuildContext context, LoginState loginState) {
               if (loginState is LoginResponseState) {
-                return buildLoginResponseState();
+                redirectToHomePage(context);
               } else if (loginState is LoginInProgressState) {
                 return buildLoginInProgressState();
+              } else if (loginState is RedirectToRegisterPageState) {
+                redirectToRegisterPage(context);
               } else if (loginState is InitialLoginState) {
                 return buildColumnWithData(context, loginState.usernameErrorMessage, loginState.passwordErrorMessage);
               }              
@@ -111,7 +114,8 @@ class _LoginPageState extends State<LoginPage> {
               child: RaisedButton(
                 color: Colors.green,
                 onPressed: () {
-//                    Navigator.push(context, MaterialPageRoute(builder: (context) => RegistrationPage()));
+                  final loginBloc = BlocProvider.of<LoginBloc>(context);
+                  loginBloc.dispatch(RedirectToRegisterPageEvent());
                 },
                 child: Text(AppStrings.register),
               ),
@@ -130,11 +134,14 @@ class _LoginPageState extends State<LoginPage> {
     ));
   }
 
-  Widget buildLoginResponseState() {
-    //todo redirect to home page
-    return Center(
-      child: Text("LOGGED IN"),
-    );
+  redirectToHomePage(BuildContext context) {
+    Navigator
+        .of(context)
+        .pushReplacement(new MaterialPageRoute(builder: (BuildContext context) => HomePage()));
+  }
+
+  redirectToRegisterPage(BuildContext context) {
+    //todo redirect to register page
   }
 
   void submit(BuildContext context) {
