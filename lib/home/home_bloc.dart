@@ -9,6 +9,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
 
   @override
   Stream<HomeState> mapEventToState(HomeEvent event) async* {
+    //todo check other states
     yield HomeInitialState();
   }
 

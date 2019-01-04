@@ -7,3 +7,15 @@ abstract class HomeState extends Equatable {
 }
 
 class HomeInitialState extends HomeState { }
+
+class NewDebtInitialState extends HomeState { }
+
+class NewLoanInitialState extends HomeState { }
+
+class MyProfileInitialState extends HomeState { }
+
+class MyDebtsInitialState extends HomeState { }
+
+class MyLoansInitialState extends HomeState { }
+
+class SettingsInitialState extends HomeState { }
