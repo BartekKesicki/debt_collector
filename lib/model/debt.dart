@@ -2,7 +2,7 @@ class Debt {
   int id;
   String description;
   int debtUserId;
-  int debtUserRefferTo;
+  int debtUserIdRefferTo;
 
   //todo (WIP)
 }
