@@ -1,7 +1,9 @@
 import 'package:debt_collector/home/home_page.dart';
 import 'package:debt_collector/login/bloc.dart';
 import 'package:debt_collector/register/register_page.dart';
+import 'package:debt_collector/utils/app_dimens.dart';
 import 'package:debt_collector/utils/app_strings.dart';
+import 'package:debt_collector/utils/app_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -24,13 +26,11 @@ class MyApp extends StatelessWidget {
 class LoginPage extends StatefulWidget {
   LoginPage({Key key}) : super(key: key);
 
-
   @override
   _LoginPageState createState() => _LoginPageState();
 }
 
 class _LoginPageState extends State<LoginPage> {
-
   final loginBloc = LoginBloc();
   final _userTextController = TextEditingController();
   final _passwordTextController = TextEditingController();
@@ -53,8 +53,11 @@ class _LoginPageState extends State<LoginPage> {
               } else if (loginState is RedirectToRegisterPageState) {
                 redirectToRegisterPage(context);
               } else if (loginState is InitialLoginState) {
-                return buildColumnWithData(context, loginState.usernameErrorMessage, loginState.passwordErrorMessage);
-              }              
+                return buildColumnWithData(
+                    context,
+                    loginState.usernameErrorMessage,
+                    loginState.passwordErrorMessage);
+              }
               return Container();
             },
           ),
@@ -63,71 +66,68 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  Column buildColumnWithData(BuildContext context, String userErrorTextMessage, String passwordErrorTextMessage) {
+  Column buildColumnWithData(BuildContext context, String userErrorTextMessage,
+      String passwordErrorTextMessage) {
     return Column(
-          mainAxisSize: MainAxisSize.max,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Padding(
-              child: TextField(
-                controller: _userTextController,
-                onChanged: (value) {
-                  final loginBloc = BlocProvider.of<LoginBloc>(context);
-                  loginBloc.dispatch(ValidateLoginEvent(_userTextController.text, _passwordTextController.text));
-                },
-                keyboardType: TextInputType.emailAddress,
-                decoration: InputDecoration(
-                    errorText: userErrorTextMessage,
-                    border: OutlineInputBorder(),
-                    hintText: AppStrings.enterEmail,
-                    labelText: AppStrings.email
-                ),
-              ),
-              padding: EdgeInsets.all(10.0),
-            ),
-            Padding(
-              child: TextField(
-                keyboardType: TextInputType.text,
-                controller: _passwordTextController,
-                onChanged: (value) {
-                  final loginBloc = BlocProvider.of<LoginBloc>(context);
-                  loginBloc.dispatch(ValidateLoginEvent(_userTextController.text, _passwordTextController.text));
-                },
-                obscureText: true,
-                decoration: InputDecoration(
-                    errorText: passwordErrorTextMessage,
-                    border: OutlineInputBorder(),
-                    hintText: AppStrings.enterPassword,
-                    labelText: AppStrings.password
-                ),
-              ),
-              padding: EdgeInsets.all(10.0),
-            ),
-            RaisedButton(
-              color: Colors.green,
-              onPressed: () {
-                submit(context);
+      mainAxisSize: MainAxisSize.max,
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: <Widget>[
+        AppStyles.withAllPadding(
+            TextField(
+              controller: _userTextController,
+              onChanged: (value) {
+                final loginBloc = BlocProvider.of<LoginBloc>(context);
+                loginBloc.dispatch(ValidateLoginEvent(
+                    _userTextController.text, _passwordTextController.text));
               },
-              child: Text(AppStrings.submit),
+              keyboardType: TextInputType.emailAddress,
+              decoration: AppStyles.createTextFieldDecoration(
+                  AppStrings.enterEmail,
+                  userErrorTextMessage,
+                  AppStrings.enterEmail),
             ),
-            Padding(
-              padding: EdgeInsets.all(20.0),
-              child: RaisedButton(
-                color: Colors.green,
-                onPressed: () {
-                  final loginBloc = BlocProvider.of<LoginBloc>(context);
-                  loginBloc.dispatch(RedirectToRegisterPageEvent());
-                },
-                child: Text(AppStrings.register),
-              ),
-            )
-          ],
-        );
+            AppDimens.textInputPaddingAllDirections),
+        AppStyles.withAllPadding(
+            TextField(
+              keyboardType: TextInputType.text,
+              controller: _passwordTextController,
+              onChanged: (value) {
+                final loginBloc = BlocProvider.of<LoginBloc>(context);
+                loginBloc.dispatch(ValidateLoginEvent(
+                    _userTextController.text, _passwordTextController.text));
+              },
+              obscureText: true,
+              decoration: AppStyles.createTextFieldDecoration(
+                  AppStrings.password,
+                  passwordErrorTextMessage,
+                  AppStrings.enterPassword),
+            ),
+            AppDimens.textInputPaddingAllDirections),
+        RaisedButton(
+          color: Colors.green,
+          onPressed: () {
+            submit(context);
+          },
+          child: Text(AppStrings.submit),
+        ),
+        Padding(
+          padding: EdgeInsets.all(20.0),
+          child: RaisedButton(
+            color: Colors.green,
+            onPressed: () {
+              final loginBloc = BlocProvider.of<LoginBloc>(context);
+              loginBloc.dispatch(RedirectToRegisterPageEvent());
+            },
+            child: Text(AppStrings.register),
+          ),
+        )
+      ],
+    );
   }
 
   Widget buildLoginInProgressState() {
     return Center(
-      child: Column(
+        child: Column(
       children: <Widget>[
         CircularProgressIndicator(),
         Text(AppStrings.loadingInProgress)
@@ -136,23 +136,26 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   redirectToHomePage(BuildContext context) {
-    Navigator
-        .of(context)
-        .pushReplacement(new MaterialPageRoute(builder: (BuildContext context) => HomePage()));
+    Navigator.of(context).pushReplacement(
+        new MaterialPageRoute(builder: (BuildContext context) => HomePage()));
   }
 
   redirectToRegisterPage(BuildContext context) {
-    Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context) => RegisterPage()));
+    Navigator.of(context).push(
+        MaterialPageRoute(builder: (BuildContext context) => RegisterPage()));
   }
 
   void submit(BuildContext context) {
     final loginBloc = BlocProvider.of<LoginBloc>(context);
-    loginBloc.dispatch(SubmitLoginEvent(_userTextController.text, _passwordTextController.text));
+    loginBloc.dispatch(SubmitLoginEvent(
+        _userTextController.text, _passwordTextController.text));
   }
 
   @override
   void dispose() {
     super.dispose();
     loginBloc.dispose();
+    _userTextController.dispose();
+    _passwordTextController.dispose();
   }
 }

@@ -9,7 +9,9 @@ abstract class RegisterState extends Equatable {
 
 class InitialRegisterState extends RegisterState {
   final String userErrorMessage;
-  InitialRegisterState(this.userErrorMessage) : super([userErrorMessage]);
+  final String passwordErrorMessage;
+  final String confirmPasswordErrorMessage;
+  InitialRegisterState(this.userErrorMessage, this.passwordErrorMessage, this.confirmPasswordErrorMessage) : super([userErrorMessage, passwordErrorMessage, confirmPasswordErrorMessage]);
 }
 
 class RegisterInProgressState extends RegisterState { }

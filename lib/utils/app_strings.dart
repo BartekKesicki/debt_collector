@@ -12,4 +12,6 @@ class AppStrings {
   static const String email = "Email";
   static const String enterPassword = "Enter Password";
   static const String password = "Password";
+
+  static const String confirmPassword = "Confirm Password";
 }

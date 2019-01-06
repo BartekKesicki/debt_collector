@@ -6,7 +6,7 @@ import 'package:bloc/bloc.dart';
 class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
 
   @override
-  RegisterState get initialState => InitialRegisterState(null);
+  RegisterState get initialState => InitialRegisterState(null, null, null);
 
   final DatabaseHelper dbHelper = DatabaseHelper.instance;
   static final int passwordMinLength = 6;
@@ -30,11 +30,11 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
       if (!passwordIsValid) {
         //todo password incorrect
       }
-      yield InitialRegisterState(null);
+      yield InitialRegisterState(null, null, null);
     } else if (event is RedirectToLoginPageEvent) {
       yield RedirectToLoginPageState();
     } else {
-      yield InitialRegisterState(null);
+      yield InitialRegisterState(null, null, null);
     }
   }
 

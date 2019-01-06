@@ -16,8 +16,9 @@ class SubmitRegisterEvent extends RegisterEvent {
 class ValidateRegisterEvent extends RegisterEvent {
   final String login;
   final String password;
+  final String confirmPassword;
 
-  ValidateRegisterEvent([this.login, this.password]) : super([login, password]);
+  ValidateRegisterEvent([this.login, this.password, this.confirmPassword]) : super([login, password, confirmPassword]);
 }
 
 class RedirectToLoginPageEvent extends RegisterEvent { }
