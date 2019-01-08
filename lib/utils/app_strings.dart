@@ -13,5 +13,7 @@ class AppStrings {
   static const String enterPassword = "Enter Password";
   static const String password = "Password";
 
+  // REGISTER PAGE
   static const String confirmPassword = "Confirm Password";
+  static const String userAlreadyExists = "User already exists";
 }

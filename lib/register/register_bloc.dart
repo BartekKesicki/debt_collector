@@ -1,7 +1,9 @@
 import 'package:debt_collector/db/database_helper.dart';
+import 'package:debt_collector/db/table_data_constants.dart';
 import 'package:debt_collector/model/user.dart';
 import 'package:debt_collector/register/bloc.dart';
 import 'package:bloc/bloc.dart';
+import 'package:debt_collector/utils/app_strings.dart';
 
 class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
 
@@ -17,18 +19,23 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
       yield RegisterInProgressState();
       final userExists = await _checkCredentials(event.login);
       if (userExists) {
-        //todo user exists
+        yield InitialRegisterState(AppStrings.userAlreadyExists, null, null);
       } else {
-        //todo register user
+        try {
+          await insertUser(event.login, event.password);
+          yield RedirectToLoginPageState();
+        } catch (exception) {
+          yield InitialRegisterState(exception.toString(), null, null);
+        }
       }
     } else if (event is ValidateRegisterEvent) {
       final loginIsValid = _checkLogin(event.login);
       final passwordIsValid = _checkPassword(event.password);
       if (!loginIsValid) {
-        //todo email invalid error message
+        yield InitialRegisterState(AppStrings.incorrectEmailMessage, null, null);
       }
       if (!passwordIsValid) {
-        //todo password incorrect
+        yield InitialRegisterState(null, AppStrings.incorrectPasswordMessage, null);
       }
       yield InitialRegisterState(null, null, null);
     } else if (event is RedirectToLoginPageEvent) {
@@ -57,5 +64,13 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
   bool _checkPassword(String password) {
     bool passwordValid = password.length >= passwordMinLength;
     return passwordValid;
+  }
+
+  insertUser(String login, String password) async {
+    Map<String, dynamic> row = {
+      TableDataConstants.userTableLoginColumnName : login,
+      TableDataConstants.userTablePasswordColumnName  : password
+    };
+    await dbHelper.insert(row);
   }
 }
