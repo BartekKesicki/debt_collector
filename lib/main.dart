@@ -58,7 +58,7 @@ class _LoginPageState extends State<LoginPage> {
             },
           ),
         ),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
+      ),
     );
   }
 
