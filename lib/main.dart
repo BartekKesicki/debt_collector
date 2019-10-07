@@ -1,5 +1,6 @@
 import 'package:debt_collector/home/home_page.dart';
 import 'package:debt_collector/login/bloc.dart';
+import 'package:debt_collector/register/register_page.dart';
 import 'package:debt_collector/utils/app_strings.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -141,7 +142,7 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   redirectToRegisterPage(BuildContext context) {
-    //todo redirect to register page
+    Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context) => RegisterPage()));
   }
 
   void submit(BuildContext context) {
