@@ -7,7 +7,10 @@ abstract class RegisterState extends Equatable {
   RegisterState([List props = const[]]) : super(props);
 }
 
-class InitialRegisterState extends RegisterState { }
+class InitialRegisterState extends RegisterState {
+  final String userErrorMessage;
+  InitialRegisterState(this.userErrorMessage) : super([userErrorMessage]);
+}
 
 class RegisterInProgressState extends RegisterState { }
 
