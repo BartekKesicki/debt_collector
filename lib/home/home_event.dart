@@ -14,8 +14,8 @@ class InitMyProfilePageEvent extends HomeEvent { }
 
 class InitMyDebtsPageEvent extends HomeEvent { }
 
-class InitHomePage extends HomeEvent { }
+class InitHomePageEvent extends HomeEvent { }
 
-class InitMyLoansPage extends HomeEvent { }
+class InitMyLoansPageEvent extends HomeEvent { }
 
-class InitSettingsPage extends HomeEvent { }
+class InitSettingsPageEvent extends HomeEvent { }
