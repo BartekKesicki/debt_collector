@@ -35,7 +35,13 @@ class _RegisterPageState extends State<RegisterPage> {
           child: BlocBuilder(
             bloc: registerBloc,
             builder: (BuildContext context, RegisterState registerState) {
-              //todo check other states
+              if (registerState is InitialRegisterState) {
+                return buildRegisterFormPage(context, registerState);
+              } else if (registerState is SubmitRegisterEvent) {
+                return buildRegisterInProgressWidget();
+              } else if (registerState is RedirectToLoginPageState) {
+                redirectToLoginPage();
+              }
               return buildRegisterFormPage(context, registerState);
             },
           ),
@@ -77,6 +83,15 @@ class _RegisterPageState extends State<RegisterPage> {
         ),
       ),
     );
+  }
+
+  Widget buildRegisterInProgressWidget() {
+    //todo add circular indicator
+    return Container();
+  }
+
+  void redirectToLoginPage() {
+    //todo navigate to login page
   }
 
   @override
