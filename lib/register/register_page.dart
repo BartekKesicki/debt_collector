@@ -6,15 +6,7 @@ import 'package:debt_collector/utils/app_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class RegisterPage extends StatefulWidget {
-  RegisterPage({Key key}) : super(key: key);
-
-
-  @override
-  _RegisterPageState createState() => _RegisterPageState();
-}
-
-class _RegisterPageState extends State<RegisterPage> {
+class RegisterPage extends StatelessWidget {
 
   final registerBloc = RegisterBloc();
   final _userTextController = TextEditingController();
@@ -23,16 +15,10 @@ class _RegisterPageState extends State<RegisterPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: BlocProvider(
+    return SingleChildScrollView(
+      child: BlocProvider(
         builder: (BuildContext context) => registerBloc,
-        child: Container(
-          height: MediaQuery
-              .of(context)
-              .size
-              .height,
-          padding: EdgeInsets.all(16.0),
-          child: BlocBuilder(
+        child: BlocBuilder(
             bloc: registerBloc,
             builder: (BuildContext context, RegisterState registerState) {
               if (registerState is InitialRegisterState) {
@@ -45,7 +31,6 @@ class _RegisterPageState extends State<RegisterPage> {
               return buildRegisterFormPage(context, registerState);
             },
           ),
-        ),
       ),
     );
   }
@@ -94,12 +79,5 @@ class _RegisterPageState extends State<RegisterPage> {
     //todo navigate to login page
   }
 
-  @override
-  void dispose() {
-    super.dispose();
-    registerBloc.dispose();
-    _userTextController.dispose();
-    _passwordTextController.dispose();
-    _confirmPasswordTextController.dispose();
-  }
+  //todo dispose
 }

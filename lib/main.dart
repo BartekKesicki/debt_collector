@@ -1,5 +1,6 @@
 import 'package:debt_collector/home/home_page.dart';
 import 'package:debt_collector/login/bloc.dart';
+import 'package:debt_collector/register/bloc.dart';
 import 'package:debt_collector/register/register_page.dart';
 import 'package:debt_collector/utils/app_dimens.dart';
 import 'package:debt_collector/utils/app_strings.dart';
@@ -18,49 +19,46 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: LoginPage(),
+      home: Scaffold(
+          body: LoginPage()
+      ),
     );
   }
 }
 
-class LoginPage extends StatefulWidget {
-  LoginPage({Key key}) : super(key: key);
-
-  @override
-  _LoginPageState createState() => _LoginPageState();
-}
-
-class _LoginPageState extends State<LoginPage> {
+class LoginPage extends StatelessWidget {
   final loginBloc = LoginBloc();
   final _userTextController = TextEditingController();
   final _passwordTextController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: BlocProvider(
-        builder: (BuildContext context) => loginBloc,
-        child: Container(
-          height: MediaQuery.of(context).size.height,
-          padding: EdgeInsets.all(16.0),
+    return SingleChildScrollView(
+      child: BlocListener(
+        listener: (BuildContext context, LoginState loginState) {
+          if (loginState is LoginResponseState) {
+            redirectToHomePage(context);
+          } else if (loginState is RedirectToRegisterPageState) {
+            redirectToRegisterPage(context);
+          }
+        },
+        bloc: loginBloc,
+        child: BlocProvider(
+          builder: (BuildContext context) => loginBloc,
           child: BlocBuilder(
-            bloc: loginBloc,
-            builder: (BuildContext context, LoginState loginState) {
-              if (loginState is LoginResponseState) {
-                redirectToHomePage(context);
-              } else if (loginState is LoginInProgressState) {
-                return buildLoginInProgressState();
-              } else if (loginState is RedirectToRegisterPageState) {
-                redirectToRegisterPage(context);
-              } else if (loginState is InitialLoginState) {
-                return buildColumnWithData(
-                    context,
-                    loginState.usernameErrorMessage,
-                    loginState.passwordErrorMessage);
-              }
-              return Container();
-            },
-          ),
+              bloc: loginBloc,
+              builder: (BuildContext context, LoginState loginState) {
+                 if (loginState is LoginInProgressState) {
+                  return buildLoginInProgressState();
+                } else if (loginState is InitialLoginState) {
+                  return buildColumnWithData(
+                      context,
+                      loginState.usernameErrorMessage,
+                      loginState.passwordErrorMessage);
+                }
+                return Container();
+              },
+            ),
         ),
       ),
     );
@@ -137,12 +135,12 @@ class _LoginPageState extends State<LoginPage> {
 
   redirectToHomePage(BuildContext context) {
     Navigator.of(context).pushReplacement(
-        new MaterialPageRoute(builder: (BuildContext context) => HomePage()));
+        MaterialPageRoute(builder: (context) => HomePage()));
   }
 
   redirectToRegisterPage(BuildContext context) {
     Navigator.of(context).push(
-        MaterialPageRoute(builder: (BuildContext context) => RegisterPage()));
+        MaterialPageRoute(builder: (context) => RegisterPage()));
   }
 
   void submit(BuildContext context) {
@@ -151,11 +149,5 @@ class _LoginPageState extends State<LoginPage> {
         _userTextController.text, _passwordTextController.text));
   }
 
-  @override
-  void dispose() {
-    super.dispose();
-    loginBloc.dispose();
-    _userTextController.dispose();
-    _passwordTextController.dispose();
-  }
+//todo dispose
 }
