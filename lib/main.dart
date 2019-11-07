@@ -26,7 +26,16 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class LoginPage extends StatelessWidget {
+class LoginPage extends StatefulWidget {
+
+  LoginPage({Key key}) : super(key: key);
+
+  @override
+  State<StatefulWidget> createState() => _LoginPageState();
+}
+
+class _LoginPageState extends State<LoginPage> {
+
   final loginBloc = LoginBloc();
   final _userTextController = TextEditingController();
   final _passwordTextController = TextEditingController();
@@ -149,5 +158,11 @@ class LoginPage extends StatelessWidget {
         _userTextController.text, _passwordTextController.text));
   }
 
-//todo dispose
+  @override
+  void dispose() {
+    super.dispose();
+    loginBloc.dispose();
+    _userTextController.dispose();
+    _passwordTextController.dispose();
+  }
 }

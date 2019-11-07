@@ -16,4 +16,6 @@ class AppStrings {
   // REGISTER PAGE
   static const String confirmPassword = "Confirm Password";
   static const String userAlreadyExists = "User already exists";
+  static const String registerInProgress = "REGISTER IN PROGRESS";
+  static const String userInsertionError = "Something went wrong";
 }

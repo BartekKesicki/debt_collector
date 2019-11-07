@@ -25,7 +25,7 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
           await insertUser(event.login, event.password);
           yield RedirectToLoginPageState();
         } catch (exception) {
-          yield InitialRegisterState(exception.toString(), null, null);
+          yield InitialRegisterState(AppStrings.userInsertionError, null, null);
         }
       }
     } else if (event is ValidateRegisterEvent) {
@@ -66,11 +66,12 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
     return passwordValid;
   }
 
-  insertUser(String login, String password) async {
+  Future<bool> insertUser(String login, String password) async {
     Map<String, dynamic> row = {
       TableDataConstants.userTableLoginColumnName : login,
       TableDataConstants.userTablePasswordColumnName  : password
     };
-    await dbHelper.insert(row);
+    int id = await dbHelper.insert(row);
+    return id != null;
   }
 }

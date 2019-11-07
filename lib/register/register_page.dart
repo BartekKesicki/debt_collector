@@ -6,7 +6,15 @@ import 'package:debt_collector/utils/app_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class RegisterPage extends StatelessWidget {
+class RegisterPage extends StatefulWidget {
+
+  RegisterPage({Key key}) : super(key: key);
+
+  @override
+  State<StatefulWidget> createState() => _RegisterPageState();
+}
+
+class _RegisterPageState extends State<RegisterPage> {
 
   final registerBloc = RegisterBloc();
   final _userTextController = TextEditingController();
@@ -14,6 +22,7 @@ class RegisterPage extends StatelessWidget {
   final _confirmPasswordTextController = TextEditingController();
 
   @override
+  //todo bloc listener
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: BlocProvider(
@@ -71,13 +80,29 @@ class RegisterPage extends StatelessWidget {
   }
 
   Widget buildRegisterInProgressWidget() {
-    //todo add circular indicator
-    return Container();
+    return Center(
+      child: Container(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: <Widget>[
+            CircularProgressIndicator(),
+            AppStyles.withAllPadding(Text(AppStrings.registerInProgress), 10.0)
+          ],
+        ),
+      ),
+    );
   }
 
   void redirectToLoginPage() {
     //todo navigate to login page
   }
 
-  //todo dispose
+  @override
+  void dispose() {
+    super.dispose();
+    registerBloc.dispose();
+    _userTextController.dispose();
+    _passwordTextController.dispose();
+    _confirmPasswordTextController.dispose();
+  }
 }
