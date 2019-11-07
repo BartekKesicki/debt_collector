@@ -1,4 +1,5 @@
 
+import 'package:debt_collector/main.dart';
 import 'package:debt_collector/register/bloc.dart';
 import 'package:debt_collector/utils/app_dimens.dart';
 import 'package:debt_collector/utils/app_strings.dart';
@@ -22,24 +23,29 @@ class _RegisterPageState extends State<RegisterPage> {
   final _confirmPasswordTextController = TextEditingController();
 
   @override
-  //todo bloc listener
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-      child: BlocProvider(
-        builder: (BuildContext context) => registerBloc,
-        child: BlocBuilder(
-            bloc: registerBloc,
-            builder: (BuildContext context, RegisterState registerState) {
-              if (registerState is InitialRegisterState) {
+      child: BlocListener(
+        listener: (BuildContext context, RegisterState registerState) {
+          if (registerState is RedirectToLoginPageState) {
+            redirectToLoginPage();
+          }
+        },
+        bloc: registerBloc,
+        child: BlocProvider(
+          builder: (BuildContext context) => registerBloc,
+          child: BlocBuilder(
+              bloc: registerBloc,
+              builder: (BuildContext context, RegisterState registerState) {
+                if (registerState is InitialRegisterState) {
+                  return buildRegisterFormPage(context, registerState);
+                } else if (registerState is SubmitRegisterEvent) {
+                  return buildRegisterInProgressWidget();
+                }
                 return buildRegisterFormPage(context, registerState);
-              } else if (registerState is SubmitRegisterEvent) {
-                return buildRegisterInProgressWidget();
-              } else if (registerState is RedirectToLoginPageState) {
-                redirectToLoginPage();
-              }
-              return buildRegisterFormPage(context, registerState);
-            },
-          ),
+              },
+            ),
+        ),
       ),
     );
   }
@@ -94,7 +100,8 @@ class _RegisterPageState extends State<RegisterPage> {
   }
 
   void redirectToLoginPage() {
-    //todo navigate to login page
+    Navigator.of(context).pushReplacement(
+        MaterialPageRoute(builder: (context) => LoginPage()));
   }
 
   @override
