@@ -29,9 +29,11 @@ class DatabaseHelper {
 
   Future _onCreate(Database db, int version) async {
     await db.execute(TableQueriesConstants.CREATE_USER_TABLE_QUERY);
+    await db.execute(TableQueriesConstants.CREATE_DEBT_TABLE_QUERY);
+    await db.execute(TableQueriesConstants.CREATE_DEBTOR_TABLE_QUERY);
   }
 
-  Future<List<Map<String, dynamic>>> queryAllRows() async {
+  Future<List<Map<String, dynamic>>> queryAllUsersRows() async {
     Database db = await instance.database;
     return await db.query(TableDataConstants.userTableName);
   }

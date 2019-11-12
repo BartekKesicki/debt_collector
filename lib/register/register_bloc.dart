@@ -46,7 +46,7 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
   }
 
   Future<bool> _checkCredentials(String login) async {
-    final users = await dbHelper.queryAllRows();
+    final users = await dbHelper.queryAllUsersRows();
     for (int i = 0; i < (users.length - 1); i++) {
       User user = User.fromMap(users[i]);
       if (user.login == login) {
