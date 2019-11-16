@@ -18,4 +18,5 @@ class AppStrings {
   static const String userAlreadyExists = "User already exists";
   static const String registerInProgress = "REGISTER IN PROGRESS";
   static const String userInsertionError = "Something went wrong";
+  static const String registerTopLabel = "REGISTER";
 }

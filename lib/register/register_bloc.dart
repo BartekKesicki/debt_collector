@@ -31,13 +31,13 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
     } else if (event is ValidateRegisterEvent) {
       final loginIsValid = _checkLogin(event.login);
       final passwordIsValid = _checkPassword(event.password);
-      if (!loginIsValid) {
+      if (loginIsValid && passwordIsValid) {
+        //todo register
+      } else if (!loginIsValid) {
         yield InitialRegisterState(AppStrings.incorrectEmailMessage, null, null);
-      }
-      if (!passwordIsValid) {
+      } else if (!passwordIsValid) {
         yield InitialRegisterState(null, AppStrings.incorrectPasswordMessage, null);
       }
-      yield InitialRegisterState(null, null, null);
     } else if (event is RedirectToLoginPageEvent) {
       yield RedirectToLoginPageState();
     } else {

@@ -57,7 +57,7 @@ class _LoginPageState extends State<LoginPage> {
           child: BlocBuilder(
               bloc: loginBloc,
               builder: (BuildContext context, LoginState loginState) {
-                 if (loginState is LoginInProgressState) {
+                if (loginState is LoginInProgressState) {
                   return buildLoginInProgressState();
                 } else if (loginState is InitialLoginState) {
                   return buildColumnWithData(

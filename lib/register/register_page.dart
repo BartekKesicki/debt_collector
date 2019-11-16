@@ -24,27 +24,29 @@ class _RegisterPageState extends State<RegisterPage> {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: BlocListener(
-        listener: (BuildContext context, RegisterState registerState) {
-          if (registerState is RedirectToLoginPageState) {
-            redirectToLoginPage();
-          }
-        },
-        bloc: registerBloc,
-        child: BlocProvider(
-          builder: (BuildContext context) => registerBloc,
-          child: BlocBuilder(
-              bloc: registerBloc,
-              builder: (BuildContext context, RegisterState registerState) {
-                if (registerState is InitialRegisterState) {
+    return Scaffold(
+      body: SingleChildScrollView(
+        child: BlocListener(
+          listener: (BuildContext context, RegisterState registerState) {
+            if (registerState is RedirectToLoginPageState) {
+              redirectToLoginPage();
+            }
+          },
+          bloc: registerBloc,
+          child: BlocProvider(
+            builder: (BuildContext context) => registerBloc,
+            child: BlocBuilder(
+                bloc: registerBloc,
+                builder: (BuildContext context, RegisterState registerState) {
+                  if (registerState is InitialRegisterState) {
+                    return buildRegisterFormPage(context, registerState);
+                  } else if (registerState is SubmitRegisterEvent) {
+                    return buildRegisterInProgressWidget();
+                  }
                   return buildRegisterFormPage(context, registerState);
-                } else if (registerState is SubmitRegisterEvent) {
-                  return buildRegisterInProgressWidget();
-                }
-                return buildRegisterFormPage(context, registerState);
-              },
-            ),
+                },
+              ),
+          ),
         ),
       ),
     );
@@ -55,6 +57,7 @@ class _RegisterPageState extends State<RegisterPage> {
       child: Center(
         child: Column(
           children: <Widget>[
+            AppStyles.withAllPadding(Text(AppStrings.registerTopLabel), AppDimens.textInputPaddingAllDirections),
             AppStyles.withAllPadding(TextField(
               decoration: AppStyles.createTextFieldDecoration(AppStrings.email, registerState.userErrorMessage, AppStrings.email),
               controller: _userTextController,
