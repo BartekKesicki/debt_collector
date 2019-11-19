@@ -19,4 +19,12 @@ class AppStrings {
   static const String registerInProgress = "REGISTER IN PROGRESS";
   static const String userInsertionError = "Something went wrong";
   static const String registerTopLabel = "REGISTER";
+
+  // HOME PAGE
+  static const String homePageBillsLabel = "Bills";
+  static const String homePageSettlementLabel = "Settlement";
+  static const String homePageHomeLabel = "Home";
+  static const String homePageCommunityLabel = "Community";
+  static const String homePageSettingsLabel = "Settings";
+
 }
