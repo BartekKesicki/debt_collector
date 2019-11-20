@@ -1,10 +1,10 @@
 import 'package:debt_collector/home/home_page.dart';
 import 'package:debt_collector/login/bloc.dart';
-import 'package:debt_collector/register/bloc.dart';
 import 'package:debt_collector/register/register_page.dart';
 import 'package:debt_collector/utils/app_dimens.dart';
 import 'package:debt_collector/utils/app_strings.dart';
 import 'package:debt_collector/utils/app_styles.dart';
+import 'package:debt_collector/utils/app_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -19,15 +19,12 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: Scaffold(
-          body: LoginPage()
-      ),
+      home: Scaffold(body: LoginPage()),
     );
   }
 }
 
 class LoginPage extends StatefulWidget {
-
   LoginPage({Key key}) : super(key: key);
 
   @override
@@ -35,7 +32,6 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-
   final loginBloc = LoginBloc();
   final _userTextController = TextEditingController();
   final _passwordTextController = TextEditingController();
@@ -55,19 +51,19 @@ class _LoginPageState extends State<LoginPage> {
         child: BlocProvider(
           builder: (BuildContext context) => loginBloc,
           child: BlocBuilder(
-              bloc: loginBloc,
-              builder: (BuildContext context, LoginState loginState) {
-                if (loginState is LoginInProgressState) {
-                  return buildLoginInProgressState();
-                } else if (loginState is InitialLoginState) {
-                  return buildColumnWithData(
-                      context,
-                      loginState.usernameErrorMessage,
-                      loginState.passwordErrorMessage);
-                }
-                return Container();
-              },
-            ),
+            bloc: loginBloc,
+            builder: (BuildContext context, LoginState loginState) {
+              if (loginState is LoginInProgressState) {
+                return buildLoginInProgressState();
+              } else if (loginState is InitialLoginState) {
+                return buildColumnWithData(
+                    context,
+                    loginState.usernameErrorMessage,
+                    loginState.passwordErrorMessage);
+              }
+              return Container();
+            },
+          ),
         ),
       ),
     );
@@ -79,6 +75,9 @@ class _LoginPageState extends State<LoginPage> {
       mainAxisSize: MainAxisSize.max,
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
+        AppStyles.withTopBelowPadding(
+            AppWidgets.buildTopLabel(AppStrings.loginTopLabel),
+            AppDimens.topBelowLabelsValue),
         AppStyles.withAllPadding(
             TextField(
               controller: _userTextController,
@@ -110,24 +109,13 @@ class _LoginPageState extends State<LoginPage> {
                   AppStrings.enterPassword),
             ),
             AppDimens.textInputPaddingAllDirections),
-        RaisedButton(
-          color: Colors.green,
-          onPressed: () {
-            submit(context);
-          },
-          child: Text(AppStrings.submit),
-        ),
-        Padding(
-          padding: EdgeInsets.all(20.0),
-          child: RaisedButton(
-            color: Colors.green,
-            onPressed: () {
-              final loginBloc = BlocProvider.of<LoginBloc>(context);
-              loginBloc.dispatch(RedirectToRegisterPageEvent());
-            },
-            child: Text(AppStrings.register),
-          ),
-        )
+        AppWidgets.createRaisedButton(AppStrings.submit, () {
+          submit(context);
+        }),
+        AppStyles.withAllPadding(AppWidgets.createRaisedButton(AppStrings.register, () {
+          final loginBloc = BlocProvider.of<LoginBloc>(context);
+          loginBloc.dispatch(RedirectToRegisterPageEvent());
+        }), 20.0)
       ],
     );
   }
@@ -143,13 +131,13 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   redirectToHomePage(BuildContext context) {
-    Navigator.of(context).pushReplacement(
-        MaterialPageRoute(builder: (context) => HomePage()));
+    Navigator.of(context)
+        .pushReplacement(MaterialPageRoute(builder: (context) => HomePage()));
   }
 
   redirectToRegisterPage(BuildContext context) {
-    Navigator.of(context).push(
-        MaterialPageRoute(builder: (context) => RegisterPage()));
+    Navigator.of(context)
+        .push(MaterialPageRoute(builder: (context) => RegisterPage()));
   }
 
   void submit(BuildContext context) {

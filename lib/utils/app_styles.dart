@@ -1,3 +1,4 @@
+import 'package:debt_collector/utils/app_dimens.dart';
 import 'package:flutter/material.dart';
 
 class AppStyles {
@@ -15,6 +16,13 @@ class AppStyles {
     return Padding(
       child: widget,
       padding: EdgeInsets.all(padding),
+    );
+  }
+
+  static Padding withTopBelowPadding(Widget widget, double padding) {
+    return Padding(
+      child: widget,
+      padding: EdgeInsets.only(top: padding, bottom: padding),
     );
   }
 }

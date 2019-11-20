@@ -1,14 +1,13 @@
-
 import 'package:debt_collector/main.dart';
 import 'package:debt_collector/register/bloc.dart';
 import 'package:debt_collector/utils/app_dimens.dart';
 import 'package:debt_collector/utils/app_strings.dart';
 import 'package:debt_collector/utils/app_styles.dart';
+import 'package:debt_collector/utils/app_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class RegisterPage extends StatefulWidget {
-
   RegisterPage({Key key}) : super(key: key);
 
   @override
@@ -16,7 +15,6 @@ class RegisterPage extends StatefulWidget {
 }
 
 class _RegisterPageState extends State<RegisterPage> {
-
   final registerBloc = RegisterBloc();
   final _userTextController = TextEditingController();
   final _passwordTextController = TextEditingController();
@@ -36,52 +34,83 @@ class _RegisterPageState extends State<RegisterPage> {
           child: BlocProvider(
             builder: (BuildContext context) => registerBloc,
             child: BlocBuilder(
-                bloc: registerBloc,
-                builder: (BuildContext context, RegisterState registerState) {
-                  if (registerState is InitialRegisterState) {
-                    return buildRegisterFormPage(context, registerState);
-                  } else if (registerState is SubmitRegisterEvent) {
-                    return buildRegisterInProgressWidget();
-                  }
+              bloc: registerBloc,
+              builder: (BuildContext context, RegisterState registerState) {
+                if (registerState is InitialRegisterState) {
                   return buildRegisterFormPage(context, registerState);
-                },
-              ),
+                } else if (registerState is SubmitRegisterEvent) {
+                  return buildRegisterInProgressWidget();
+                }
+                return buildRegisterFormPage(context, registerState);
+              },
+            ),
           ),
         ),
       ),
     );
   }
 
-  Widget buildRegisterFormPage(BuildContext context, InitialRegisterState registerState) {
+  Widget buildRegisterFormPage(
+      BuildContext context, InitialRegisterState registerState) {
     return Container(
       child: Center(
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: <Widget>[
-            AppStyles.withAllPadding(Text(AppStrings.registerTopLabel), AppDimens.textInputPaddingAllDirections),
-            AppStyles.withAllPadding(TextField(
-              decoration: AppStyles.createTextFieldDecoration(AppStrings.email, registerState.userErrorMessage, AppStrings.email),
-              controller: _userTextController,
-              onChanged: (value) {
-                final registerBloc = BlocProvider.of<RegisterBloc>(context);
-                registerBloc.dispatch(ValidateRegisterEvent(_userTextController.text, _passwordTextController.text, _confirmPasswordTextController.text));
-              },
-            ), AppDimens.textInputPaddingAllDirections),
-            AppStyles.withAllPadding(TextField(
-              decoration: AppStyles.createTextFieldDecoration(AppStrings.password, registerState.passwordErrorMessage, AppStrings.password),
-              controller: _passwordTextController,
-              onChanged: (value) {
-                final registerBloc = BlocProvider.of<RegisterBloc>(context);
-                registerBloc.dispatch(ValidateRegisterEvent(_userTextController.text, _passwordTextController.text, _confirmPasswordTextController.text));
-              },
-            ), AppDimens.textInputPaddingAllDirections),
-            AppStyles.withAllPadding(TextField(
-              decoration: AppStyles.createTextFieldDecoration(AppStrings.confirmPassword, registerState.confirmPasswordErrorMessage, AppStrings.confirmPassword),
-              controller: _confirmPasswordTextController,
-              onChanged: (value) {
-                final registerBloc = BlocProvider.of<RegisterBloc>(context);
-                registerBloc.dispatch(ValidateRegisterEvent(_userTextController.text, _passwordTextController.text, _confirmPasswordTextController.text));
-              },
-            ), AppDimens.textInputPaddingAllDirections),
+            AppStyles.withTopBelowPadding(
+                AppWidgets.buildTopLabel(AppStrings.register),
+                AppDimens.topBelowLabelsValue),
+            AppStyles.withAllPadding(
+                TextField(
+                  decoration: AppStyles.createTextFieldDecoration(
+                      AppStrings.email,
+                      registerState.userErrorMessage,
+                      AppStrings.email),
+                  controller: _userTextController,
+                  onChanged: (value) {
+                    final registerBloc = BlocProvider.of<RegisterBloc>(context);
+                    registerBloc.dispatch(ValidateRegisterEvent(
+                        _userTextController.text,
+                        _passwordTextController.text,
+                        _confirmPasswordTextController.text));
+                  },
+                ),
+                AppDimens.textInputPaddingAllDirections),
+            AppStyles.withAllPadding(
+                TextField(
+                  decoration: AppStyles.createTextFieldDecoration(
+                      AppStrings.password,
+                      registerState.passwordErrorMessage,
+                      AppStrings.password),
+                  controller: _passwordTextController,
+                  onChanged: (value) {
+                    final registerBloc = BlocProvider.of<RegisterBloc>(context);
+                    registerBloc.dispatch(ValidateRegisterEvent(
+                        _userTextController.text,
+                        _passwordTextController.text,
+                        _confirmPasswordTextController.text));
+                  },
+                ),
+                AppDimens.textInputPaddingAllDirections),
+            AppStyles.withAllPadding(
+                TextField(
+                  decoration: AppStyles.createTextFieldDecoration(
+                      AppStrings.confirmPassword,
+                      registerState.confirmPasswordErrorMessage,
+                      AppStrings.confirmPassword),
+                  controller: _confirmPasswordTextController,
+                  onChanged: (value) {
+                    final registerBloc = BlocProvider.of<RegisterBloc>(context);
+                    registerBloc.dispatch(ValidateRegisterEvent(
+                        _userTextController.text,
+                        _passwordTextController.text,
+                        _confirmPasswordTextController.text));
+                  },
+                ),
+                AppDimens.textInputPaddingAllDirections),
+            AppWidgets.createRaisedButton(AppStrings.register, () {
+              //todo submit register
+            }),
           ],
         ),
       ),
@@ -103,9 +132,11 @@ class _RegisterPageState extends State<RegisterPage> {
   }
 
   void redirectToLoginPage() {
-    Navigator.of(context).pushReplacement(
-        MaterialPageRoute(builder: (context) => LoginPage()));
+    Navigator.of(context)
+        .pushReplacement(MaterialPageRoute(builder: (context) => LoginPage()));
   }
+
+  //todo backbutton
 
   @override
   void dispose() {

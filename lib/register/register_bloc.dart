@@ -32,7 +32,7 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
       final loginIsValid = _checkLogin(event.login);
       final passwordIsValid = _checkPassword(event.password);
       if (loginIsValid && passwordIsValid) {
-        //todo register
+        yield InitialRegisterState(null, null, null);
       } else if (!loginIsValid) {
         yield InitialRegisterState(AppStrings.incorrectEmailMessage, null, null);
       } else if (!passwordIsValid) {
