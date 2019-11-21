@@ -17,3 +17,5 @@ class InitialRegisterState extends RegisterState {
 class RegisterInProgressState extends RegisterState { }
 
 class RedirectToLoginPageState extends RegisterState { }
+
+class BackButtonState extends RegisterState { }

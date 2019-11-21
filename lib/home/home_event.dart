@@ -19,3 +19,5 @@ class InitHomePageEvent extends HomeEvent { }
 class InitMyLoansPageEvent extends HomeEvent { }
 
 class InitSettingsPageEvent extends HomeEvent { }
+
+class BackButtonEvent extends HomeEvent { }

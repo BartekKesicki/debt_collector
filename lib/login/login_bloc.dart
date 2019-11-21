@@ -14,7 +14,9 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
 
   @override
   Stream<LoginState> mapEventToState(LoginEvent event) async* {
-    if (event is SubmitLoginEvent) {
+    if (event is BackButtonEvent) {
+      yield BackButtonState();
+    } else if (event is SubmitLoginEvent) {
       yield LoginInProgressState();
       final userExists = await _checkCredentials(event.login, event.password);
       if (userExists) {

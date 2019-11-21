@@ -15,7 +15,9 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
 
   @override
   Stream<RegisterState> mapEventToState(RegisterEvent event) async* {
-    if (event is SubmitRegisterEvent) {
+    if (event is BackButtonEvent) {
+      yield BackButtonState();
+    } else if (event is SubmitRegisterEvent) {
       yield RegisterInProgressState();
       final userExists = await _checkCredentials(event.login);
       if (userExists) {

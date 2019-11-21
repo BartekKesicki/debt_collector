@@ -38,31 +38,36 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: BlocListener(
-        listener: (BuildContext context, LoginState loginState) {
-          if (loginState is LoginResponseState) {
-            redirectToHomePage(context);
-          } else if (loginState is RedirectToRegisterPageState) {
-            redirectToRegisterPage(context);
-          }
-        },
-        bloc: loginBloc,
-        child: BlocProvider(
-          builder: (BuildContext context) => loginBloc,
-          child: BlocBuilder(
-            bloc: loginBloc,
-            builder: (BuildContext context, LoginState loginState) {
-              if (loginState is LoginInProgressState) {
-                return buildLoginInProgressState();
-              } else if (loginState is InitialLoginState) {
-                return buildColumnWithData(
-                    context,
-                    loginState.usernameErrorMessage,
-                    loginState.passwordErrorMessage);
-              }
-              return Container();
-            },
+    return WillPopScope(
+      onWillPop: _onWillPop,
+      child: SingleChildScrollView(
+        child: BlocListener(
+          listener: (BuildContext context, LoginState loginState) {
+            if (loginState is BackButtonState) {
+              //do nothing
+            } else if (loginState is LoginResponseState) {
+              redirectToHomePage(context);
+            } else if (loginState is RedirectToRegisterPageState) {
+              redirectToRegisterPage(context);
+            }
+          },
+          bloc: loginBloc,
+          child: BlocProvider(
+            builder: (BuildContext context) => loginBloc,
+            child: BlocBuilder(
+              bloc: loginBloc,
+              builder: (BuildContext context, LoginState loginState) {
+                if (loginState is LoginInProgressState) {
+                  return buildLoginInProgressState();
+                } else if (loginState is InitialLoginState) {
+                  return buildColumnWithData(
+                      context,
+                      loginState.usernameErrorMessage,
+                      loginState.passwordErrorMessage);
+                }
+                return Container();
+              },
+            ),
           ),
         ),
       ),
@@ -128,6 +133,11 @@ class _LoginPageState extends State<LoginPage> {
         Text(AppStrings.loadingInProgress)
       ],
     ));
+  }
+
+  void _onWillPop(){
+    final loginBloc = BlocProvider.of<LoginBloc>(context);
+    loginBloc.dispatch(BackButtonEvent());
   }
 
   redirectToHomePage(BuildContext context) {

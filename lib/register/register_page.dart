@@ -22,27 +22,30 @@ class _RegisterPageState extends State<RegisterPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SingleChildScrollView(
-        child: BlocListener(
-          listener: (BuildContext context, RegisterState registerState) {
-            if (registerState is RedirectToLoginPageState) {
-              redirectToLoginPage();
-            }
-          },
-          bloc: registerBloc,
-          child: BlocProvider(
-            builder: (BuildContext context) => registerBloc,
-            child: BlocBuilder(
-              bloc: registerBloc,
-              builder: (BuildContext context, RegisterState registerState) {
-                if (registerState is InitialRegisterState) {
+    return WillPopScope(
+      onWillPop: _onWillPop,
+      child: Scaffold(
+        body: SingleChildScrollView(
+          child: BlocListener(
+            listener: (BuildContext context, RegisterState registerState) {
+              if (registerState is RedirectToLoginPageState || registerState is BackButtonState) {
+                redirectToLoginPage();
+              }
+            },
+            bloc: registerBloc,
+            child: BlocProvider(
+              builder: (BuildContext context) => registerBloc,
+              child: BlocBuilder(
+                bloc: registerBloc,
+                builder: (BuildContext context, RegisterState registerState) {
+                  if (registerState is InitialRegisterState) {
+                    return buildRegisterFormPage(context, registerState);
+                  } else if (registerState is SubmitRegisterEvent) {
+                    return buildRegisterInProgressWidget();
+                  }
                   return buildRegisterFormPage(context, registerState);
-                } else if (registerState is SubmitRegisterEvent) {
-                  return buildRegisterInProgressWidget();
-                }
-                return buildRegisterFormPage(context, registerState);
-              },
+                },
+              ),
             ),
           ),
         ),
@@ -117,6 +120,11 @@ class _RegisterPageState extends State<RegisterPage> {
     );
   }
 
+  void _onWillPop(){
+    final registerBloc = BlocProvider.of<RegisterBloc>(context);
+    registerBloc.dispatch(BackButtonEvent());
+  }
+
   Widget buildRegisterInProgressWidget() {
     return Center(
       child: Container(
@@ -135,8 +143,6 @@ class _RegisterPageState extends State<RegisterPage> {
     Navigator.of(context)
         .pushReplacement(MaterialPageRoute(builder: (context) => LoginPage()));
   }
-
-  //todo backbutton
 
   @override
   void dispose() {

@@ -22,3 +22,5 @@ class ValidateRegisterEvent extends RegisterEvent {
 }
 
 class RedirectToLoginPageEvent extends RegisterEvent { }
+
+class BackButtonEvent extends RegisterEvent { }

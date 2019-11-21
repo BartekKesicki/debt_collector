@@ -29,36 +29,47 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SingleChildScrollView(
-        child: BlocListener(
-          bloc: _homeBloc,
-          listener: (BuildContext context, HomeState homeState) {
-            //todo add behaviour
-          },
-          child: BlocProvider(
-            builder: (BuildContext context) => _homeBloc,
-            child: BlocBuilder(
-              bloc: _homeBloc,
-              builder: (BuildContext context, HomeState homeState) {
-                //todo fill building widgets
-                return buildMainWidget(context);
-              },
+    return WillPopScope(
+      onWillPop: _onWillPop,
+      child: Scaffold(
+        body: SingleChildScrollView(
+          child: BlocListener(
+            bloc: _homeBloc,
+            listener: (BuildContext context, HomeState homeState) {
+              if (homeState is BackButtonState) {
+                //do nothing
+              }
+              //todo add behaviour
+            },
+            child: BlocProvider(
+              builder: (BuildContext context) => _homeBloc,
+              child: BlocBuilder(
+                bloc: _homeBloc,
+                builder: (BuildContext context, HomeState homeState) {
+                  //todo fill building widgets
+                  return buildMainWidget(context);
+                },
+              ),
             ),
           ),
         ),
-      ),
-      bottomNavigationBar: CircularBottomNavigation(
-        tabItems,
-        controller: _navigationController,
-        selectedCallback: (int selectedPos) {
-          setState(() {
-            //todo launch events
-            _navigationController.value = selectedPos;
-          });
-        },
+        bottomNavigationBar: CircularBottomNavigation(
+          tabItems,
+          controller: _navigationController,
+          selectedCallback: (int selectedPos) {
+            setState(() {
+              //todo launch events
+              _navigationController.value = selectedPos;
+            });
+          },
+        ),
       ),
     );
+  }
+
+  void _onWillPop(){
+    final homeBloc = BlocProvider.of<HomeBloc>(context);
+    homeBloc.dispatch(BackButtonEvent());
   }
 
   Widget buildMainWidget(BuildContext context) {

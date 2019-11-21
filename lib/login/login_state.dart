@@ -21,3 +21,5 @@ class LoginResponseState extends LoginState {
   final bool response;
   LoginResponseState(this.response) : super([response]);
 }
+
+class BackButtonState extends LoginState { }

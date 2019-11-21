@@ -9,7 +9,9 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
 
   @override
   Stream<HomeState> mapEventToState(HomeEvent event) async* {
-    if (event is InitNewDebtPageEvent) {
+    if (event is BackButtonEvent) {
+      yield BackButtonState();
+    } else if (event is InitNewDebtPageEvent) {
       yield NewDebtInitialState();
     } else if (event is InitNewLoanPageEvent) {
       yield NewLoanInitialState();
