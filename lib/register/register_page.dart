@@ -43,7 +43,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   } else if (registerState is SubmitRegisterEvent) {
                     return buildRegisterInProgressWidget();
                   }
-                  return buildRegisterFormPage(context, registerState);
+                  return Container();
                 },
               ),
             ),
@@ -120,9 +120,9 @@ class _RegisterPageState extends State<RegisterPage> {
     );
   }
 
-  void _onWillPop(){
-    final registerBloc = BlocProvider.of<RegisterBloc>(context);
+  Future<bool> _onWillPop() async {
     registerBloc.dispatch(BackButtonEvent());
+    return true;
   }
 
   Widget buildRegisterInProgressWidget() {

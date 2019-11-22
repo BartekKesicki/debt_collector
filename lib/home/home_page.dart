@@ -67,9 +67,9 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  void _onWillPop(){
-    final homeBloc = BlocProvider.of<HomeBloc>(context);
-    homeBloc.dispatch(BackButtonEvent());
+  Future<bool> _onWillPop() async {
+    _homeBloc.dispatch(BackButtonEvent());
+    return true;
   }
 
   Widget buildMainWidget(BuildContext context) {

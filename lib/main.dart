@@ -19,7 +19,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: Scaffold(body: LoginPage()),
+      home: LoginPage(),
     );
   }
 }
@@ -40,33 +40,35 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: _onWillPop,
-      child: SingleChildScrollView(
-        child: BlocListener(
-          listener: (BuildContext context, LoginState loginState) {
-            if (loginState is BackButtonState) {
-              //do nothing
-            } else if (loginState is LoginResponseState) {
-              redirectToHomePage(context);
-            } else if (loginState is RedirectToRegisterPageState) {
-              redirectToRegisterPage(context);
-            }
-          },
-          bloc: loginBloc,
-          child: BlocProvider(
-            builder: (BuildContext context) => loginBloc,
-            child: BlocBuilder(
-              bloc: loginBloc,
-              builder: (BuildContext context, LoginState loginState) {
-                if (loginState is LoginInProgressState) {
-                  return buildLoginInProgressState();
-                } else if (loginState is InitialLoginState) {
-                  return buildColumnWithData(
-                      context,
-                      loginState.usernameErrorMessage,
-                      loginState.passwordErrorMessage);
-                }
-                return Container();
-              },
+      child: Scaffold(
+        body: SingleChildScrollView(
+          child: BlocListener(
+            listener: (BuildContext context, LoginState loginState) {
+              if (loginState is BackButtonState) {
+                //do nothing
+              } else if (loginState is LoginResponseState) {
+                redirectToHomePage(context);
+              } else if (loginState is RedirectToRegisterPageState) {
+                redirectToRegisterPage(context);
+              }
+            },
+            bloc: loginBloc,
+            child: BlocProvider(
+              builder: (BuildContext context) => loginBloc,
+              child: BlocBuilder(
+                bloc: loginBloc,
+                builder: (BuildContext context, LoginState loginState) {
+                  if (loginState is LoginInProgressState) {
+                    return buildLoginInProgressState();
+                  } else if (loginState is InitialLoginState) {
+                    return buildColumnWithData(
+                        context,
+                        loginState.usernameErrorMessage,
+                        loginState.passwordErrorMessage);
+                  }
+                  return Container();
+                },
+              ),
             ),
           ),
         ),
@@ -135,9 +137,9 @@ class _LoginPageState extends State<LoginPage> {
     ));
   }
 
-  void _onWillPop(){
-    final loginBloc = BlocProvider.of<LoginBloc>(context);
+  Future<bool> _onWillPop() async{
     loginBloc.dispatch(BackButtonEvent());
+    return true;
   }
 
   redirectToHomePage(BuildContext context) {
