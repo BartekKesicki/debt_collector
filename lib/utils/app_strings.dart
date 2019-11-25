@@ -19,6 +19,7 @@ class AppStrings {
   static const String registerInProgress = "REGISTER IN PROGRESS";
   static const String userInsertionError = "Something went wrong";
   static const String registerTopLabel = "REGISTER";
+  static const String passwordsMustBeEqual = "Passwords must be the same";
 
   // HOME PAGE
   static const String homePageBillsLabel = "Bills";

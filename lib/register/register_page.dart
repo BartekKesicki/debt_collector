@@ -112,7 +112,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 ),
                 AppDimens.textInputPaddingAllDirections),
             AppWidgets.createRaisedButton(AppStrings.register, () {
-              //todo submit register
+              registerBloc.dispatch(SubmitRegisterEvent(_userTextController.text, _passwordTextController.text, _confirmPasswordTextController.text));
             }),
           ],
         ),

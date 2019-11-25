@@ -20,7 +20,10 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
     } else if (event is SubmitRegisterEvent) {
       yield RegisterInProgressState();
       final userExists = await _checkCredentials(event.login);
-      if (userExists) {
+      final passwordsAreEqual = _isPasswordsEqual(event.password, event.confirmPassword);
+      if (!passwordsAreEqual) {
+        yield InitialRegisterState(null, AppStrings.passwordsMustBeEqual, null);
+      } else if (userExists) {
         yield InitialRegisterState(AppStrings.userAlreadyExists, null, null);
       } else {
         try {
@@ -33,8 +36,11 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
     } else if (event is ValidateRegisterEvent) {
       final loginIsValid = _checkLogin(event.login);
       final passwordIsValid = _checkPassword(event.password);
-      if (loginIsValid && passwordIsValid) {
+      final passwordsAreEqual = _isPasswordsEqual(event.password, event.confirmPassword);
+      if (loginIsValid && passwordIsValid && passwordsAreEqual) {
         yield InitialRegisterState(null, null, null);
+      } else if (!passwordsAreEqual) {
+        yield InitialRegisterState(null, AppStrings.passwordsMustBeEqual, null);
       } else if (!loginIsValid) {
         yield InitialRegisterState(AppStrings.incorrectEmailMessage, null, null);
       } else if (!passwordIsValid) {
@@ -66,6 +72,10 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
   bool _checkPassword(String password) {
     bool passwordValid = password.length >= passwordMinLength;
     return passwordValid;
+  }
+
+  bool _isPasswordsEqual(String password, String confirmPassword) {
+    return password == confirmPassword;
   }
 
   Future<bool> insertUser(String login, String password) async {

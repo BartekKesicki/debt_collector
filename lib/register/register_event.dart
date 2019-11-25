@@ -9,8 +9,9 @@ abstract class RegisterEvent extends Equatable {
 class SubmitRegisterEvent extends RegisterEvent {
   final String login;
   final String password;
+  final String confirmPassword;
 
-  SubmitRegisterEvent([this.login, this.password]) : super([login, password]);
+  SubmitRegisterEvent([this.login, this.password, this.confirmPassword]) : super([login, password, confirmPassword]);
 }
 
 class ValidateRegisterEvent extends RegisterEvent {
