@@ -33,24 +33,31 @@ class _HomePageState extends State<HomePage> {
       onWillPop: _onWillPop,
       child: Scaffold(
         body: SingleChildScrollView(
-          child: BlocListener(
-            bloc: _homeBloc,
-            listener: (BuildContext context, HomeState homeState) {
-              if (homeState is BackButtonState) {
-                //do nothing
-              }
-              //todo add behaviour
-            },
-            child: BlocProvider(
+          child: BlocProvider(
               builder: (BuildContext context) => _homeBloc,
               child: BlocBuilder(
                 bloc: _homeBloc,
                 builder: (BuildContext context, HomeState homeState) {
-                  //todo fill building widgets
+                  if (homeState is BackButtonState) {
+                    //do nothing
+                  } else if (homeState is NewDebtInitialState) {
+                    //todo build correct widget
+                  } else if (homeState is NewLoanInitialState) {
+                    //todo build correct widget
+                  } else if (homeState is HomeInitialState) {
+                    //todo build correct widget
+                  } else if (homeState is MyProfileInitialState) {
+                    //todo build correct widget
+                  } else if (homeState is MyDebtsInitialState) {
+                    //todo build correct widget
+                  } else if (homeState is MyLoansInitialState) {
+                    //todo build correct widget
+                  } else if (homeState is SettingsInitialState) {
+                    //todo build correct widget
+                  }
                   return buildMainWidget(context);
                 },
               ),
-            ),
           ),
         ),
         bottomNavigationBar: CircularBottomNavigation(
@@ -73,6 +80,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget buildMainWidget(BuildContext context) {
+    //todo build main widget
     return Container();
   }
 
