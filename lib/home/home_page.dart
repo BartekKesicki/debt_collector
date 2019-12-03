@@ -1,5 +1,7 @@
 import 'package:debt_collector/home/bloc.dart';
+import 'package:debt_collector/main/bloc.dart';
 import 'package:debt_collector/new_debt/bloc.dart';
+import 'package:debt_collector/new_loan/bloc.dart';
 import 'package:debt_collector/utils/app_strings.dart';
 import 'package:flutter/material.dart';
 import 'package:circular_bottom_navigation/circular_bottom_navigation.dart';
@@ -44,9 +46,9 @@ class _HomePageState extends State<HomePage> {
                   } else if (homeState is NewDebtInitialState) {
                     return NewDebtPage();
                   } else if (homeState is NewLoanInitialState) {
-                    //todo build correct widget
+                    return NewLoanPage();
                   } else if (homeState is HomeInitialState) {
-                    //todo build correct widget
+                    return MainPage();
                   } else if (homeState is MyProfileInitialState) {
                     //todo build correct widget
                   } else if (homeState is MyDebtsInitialState) {
