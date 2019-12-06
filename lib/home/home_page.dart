@@ -1,5 +1,6 @@
 import 'package:debt_collector/home/bloc.dart';
 import 'package:debt_collector/main/bloc.dart';
+import 'package:debt_collector/my_profile/bloc.dart';
 import 'package:debt_collector/new_debt/bloc.dart';
 import 'package:debt_collector/new_loan/bloc.dart';
 import 'package:debt_collector/utils/app_strings.dart';
@@ -50,7 +51,7 @@ class _HomePageState extends State<HomePage> {
                   } else if (homeState is HomeInitialState) {
                     return MainPage();
                   } else if (homeState is MyProfileInitialState) {
-                    //todo build correct widget
+                    return MyProfilePage();
                   } else if (homeState is MyDebtsInitialState) {
                     //todo build correct widget
                   } else if (homeState is MyLoansInitialState) {
