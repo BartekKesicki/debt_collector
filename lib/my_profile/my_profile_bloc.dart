@@ -11,7 +11,4 @@ class MyProfileBloc extends Bloc<MyProfileEvent, MyProfileState> {
   Stream<MyProfileState> mapEventToState(MyProfileEvent event) async* {
     yield ScreenMyProfileState();
   }
-
-
-
 }
