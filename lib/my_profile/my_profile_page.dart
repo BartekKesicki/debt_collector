@@ -4,10 +4,10 @@ class MyProfilePage extends StatefulWidget {
   MyProfilePage({Key key}) : super(key: key);
 
   @override
-  State<StatefulWidget> createState() => _MyProfilePagePageState();
+  State<StatefulWidget> createState() => _MyProfilePageState();
 }
 
-class _MyProfilePagePageState extends State<MyProfilePage> {
+class _MyProfilePageState extends State<MyProfilePage> {
   @override
   Widget build(BuildContext context) {
     //todo fill page
