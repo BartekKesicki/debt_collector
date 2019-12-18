@@ -5,6 +5,7 @@ import 'package:debt_collector/my_loans/bloc.dart';
 import 'package:debt_collector/my_profile/bloc.dart';
 import 'package:debt_collector/new_debt/bloc.dart';
 import 'package:debt_collector/new_loan/bloc.dart';
+import 'package:debt_collector/settings/bloc.dart';
 import 'package:debt_collector/utils/app_strings.dart';
 import 'package:flutter/material.dart';
 import 'package:circular_bottom_navigation/circular_bottom_navigation.dart';
@@ -59,7 +60,7 @@ class _HomePageState extends State<HomePage> {
                   } else if (homeState is MyLoansInitialState) {
                     return MyLoansPage();
                   } else if (homeState is SettingsInitialState) {
-                    //todo build correct widget
+                    return SettingsPage();
                   }
                   return buildMainWidget(context);
                 },
