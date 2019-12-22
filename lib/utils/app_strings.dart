@@ -28,4 +28,7 @@ class AppStrings {
   static const String homePageCommunityLabel = "Community";
   static const String homePageSettingsLabel = "Settings";
 
+  // SETTINGS
+  static const String settingsPageLogoutLabel = "LOGOUT";
+
 }
