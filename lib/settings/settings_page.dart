@@ -33,4 +33,14 @@ class _SettingsPageState extends State<SettingsPage> {
     );
   }
 
+  showAlertDialog() {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AppWidgets.createAlertDialog(context,
+              AppStrings.doYouWantToLogoutMessage, AppStrings.yes, AppStrings.no, () {
+                //todo perform logout
+              }, null);
+        });
+  }
 }

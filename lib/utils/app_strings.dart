@@ -1,5 +1,9 @@
 class AppStrings {
 
+  // COMMON
+  static const yes = "YES";
+  static const no = "NO";
+
   // LOGIN PAGE
   static const String loginTopLabel = "DEBT COLLECTOR";
   static const String incorrectEmailMessage = "INCORRECT EMAIL";
@@ -30,5 +34,6 @@ class AppStrings {
 
   // SETTINGS
   static const String settingsPageLogoutLabel = "LOGOUT";
+  static const String doYouWantToLogoutMessage = "Do you want to logout ?";
 
 }
