@@ -88,7 +88,9 @@ class _HomePageState extends State<HomePage> {
 
   Widget buildMainWidget(BuildContext context) {
     //todo build main widget
-    return Container();
+    return Center(
+      child: Text("HOME"),
+    );
   }
 
   @override
