@@ -5,6 +5,14 @@ import 'app_strings.dart';
 
 class AppWidgets {
 
+  static Text buildWelcomeText(String text) {
+    return Text(text,
+      style: TextStyle(color: Colors.grey,
+          fontSize: AppDimens.smallTopLabelsFontSize,
+          fontWeight: FontWeight.bold),
+    );
+  }
+
   static Text buildTopLabel(String text) {
     return Text(text,
       style: TextStyle(color: Colors.black,

@@ -43,7 +43,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
 
   Future<bool> _checkCredentials(String login, String password) async {
     final users = await _databaseHelper.queryAllUsersRows();
-    for (int i = 0; i < (users.length - 1); i++) {
+    for (int i = 0; i < users.length; i++) {
       User user = User.fromMap(users[i]);
       if (user.login == login && user.password == password) {
         return true;
