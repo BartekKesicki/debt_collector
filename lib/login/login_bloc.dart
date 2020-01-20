@@ -24,18 +24,6 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       } else {
         yield InitialLoginState(AppStrings.incorrectEmailOrPasswordMessage, null);
       }
-    } else if (event is ValidateLoginEvent) {
-      final emailIsValid = _validateEmail(event.login);
-      final passwordIsValid = _validatePassword(event.password);
-      if (emailIsValid && passwordIsValid) {
-        yield InitialLoginState(null, null);
-      } else if (!emailIsValid && !passwordIsValid) {
-        yield InitialLoginState(AppStrings.incorrectEmailMessage, AppStrings.incorrectPasswordMessage);
-      } else if (!emailIsValid) {
-        yield InitialLoginState(null, null);
-      } else if (!passwordIsValid) {
-        yield InitialLoginState(null, AppStrings.incorrectPasswordMessage);
-      }
     } else if (event is RedirectToRegisterPageEvent) {
       yield RedirectToRegisterPageState();
     }
@@ -50,14 +38,5 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       }
     }
     return false;
-  }
-
-  bool _validateEmail(String login) {
-    bool emailValid = RegExp(r"^[a-zA-Z0-9.]+@[a-zA-Z0-9]+\.[a-zA-Z]+").hasMatch(login);
-    return emailValid;
-  }
-
-  bool _validatePassword(String password) {
-    return password.length > passwordMinLength;
   }
 }

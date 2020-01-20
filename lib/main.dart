@@ -88,32 +88,24 @@ class _LoginPageState extends State<LoginPage> {
         AppStyles.withAllPadding(
             TextField(
               controller: _userTextController,
-              onChanged: (value) {
-                final loginBloc = BlocProvider.of<LoginBloc>(context);
-                loginBloc.dispatch(ValidateLoginEvent(
-                    _userTextController.text, _passwordTextController.text));
-              },
+              onChanged: (value) { },
               keyboardType: TextInputType.emailAddress,
               decoration: AppStyles.createTextFieldDecoration(
-                  AppStrings.enterEmail,
+                  AppStrings.email,
                   userErrorTextMessage,
-                  AppStrings.enterEmail),
+                  null),
             ),
             AppDimens.textInputPaddingAllDirections),
         AppStyles.withAllPadding(
             TextField(
               keyboardType: TextInputType.text,
               controller: _passwordTextController,
-              onChanged: (value) {
-                final loginBloc = BlocProvider.of<LoginBloc>(context);
-                loginBloc.dispatch(ValidateLoginEvent(
-                    _userTextController.text, _passwordTextController.text));
-              },
+              onChanged: (value) { },
               obscureText: true,
               decoration: AppStyles.createTextFieldDecoration(
                   AppStrings.password,
                   passwordErrorTextMessage,
-                  AppStrings.enterPassword),
+                  null),
             ),
             AppDimens.textInputPaddingAllDirections),
         AppWidgets.createRaisedButton(AppStrings.submit, () {
