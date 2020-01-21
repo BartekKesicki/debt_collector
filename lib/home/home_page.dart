@@ -1,4 +1,5 @@
 import 'package:debt_collector/home/bloc.dart';
+import 'package:debt_collector/home/home_sub_page_enum.dart';
 import 'package:debt_collector/main/bloc.dart';
 import 'package:debt_collector/my_debts/bloc.dart';
 import 'package:debt_collector/my_loans/bloc.dart';
@@ -72,8 +73,18 @@ class _HomePageState extends State<HomePage> {
           controller: _navigationController,
           selectedCallback: (int selectedPos) {
             setState(() {
-              //todo launch events
               _navigationController.value = selectedPos;
+              if (selectedPos == HomeSubPageEnum.BILLS.index) {
+                //todo pages with loans and debts
+              } else if (selectedPos == HomeSubPageEnum.SETTLEMENT.index) {
+                //todo pages with loans and debts
+              } else if (selectedPos == HomeSubPageEnum.HOME.index) {
+                _homeBloc.dispatch(InitHomePageEvent());
+              } else if (selectedPos == HomeSubPageEnum.COMMUNITY.index) {
+                _homeBloc.dispatch(InitMyProfilePageEvent());
+              } else if (selectedPos == HomeSubPageEnum.SETTINGS.index) {
+                _homeBloc.dispatch(InitSettingsPageEvent());
+              }
             });
           },
         ),
