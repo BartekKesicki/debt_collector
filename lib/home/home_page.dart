@@ -46,6 +46,7 @@ class _HomePageState extends State<HomePage> {
               child: BlocBuilder(
                 bloc: _homeBloc,
                 builder: (BuildContext context, HomeState homeState) {
+                  //todo change pages
                   if (homeState is BackButtonState) {
                     //do nothing
                   } else if (homeState is NewDebtInitialState) {
