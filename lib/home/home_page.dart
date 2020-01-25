@@ -76,13 +76,13 @@ class _HomePageState extends State<HomePage> {
             setState(() {
               _navigationController.value = selectedPos;
               if (selectedPos == HomeSubPageEnum.BILLS.index) {
-                //todo pages with loans and debts
+                _homeBloc.dispatch(InitBillsPageEvent());
               } else if (selectedPos == HomeSubPageEnum.SETTLEMENT.index) {
-                //todo pages with loans and debts
+                _homeBloc.dispatch(InitSettlementsPageEvent());
               } else if (selectedPos == HomeSubPageEnum.HOME.index) {
                 _homeBloc.dispatch(InitHomePageEvent());
               } else if (selectedPos == HomeSubPageEnum.COMMUNITY.index) {
-                _homeBloc.dispatch(InitMyProfilePageEvent());
+                _homeBloc.dispatch(InitCommunityPageEvent());
               } else if (selectedPos == HomeSubPageEnum.SETTINGS.index) {
                 _homeBloc.dispatch(InitSettingsPageEvent());
               }

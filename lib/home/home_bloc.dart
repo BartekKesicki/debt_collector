@@ -25,6 +25,12 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
       yield MyLoansInitialState();
     } else if (event is InitSettingsPageEvent) {
       yield SettingsInitialState();
+    } else if (event is InitBillsPageEvent) {
+      yield BillsPageState();
+    } else if (event is InitSettlementsPageEvent) {
+      yield SettlementsPageState();
+    } else if (event is InitCommunityPageEvent) {
+      yield CommunityPageState();
     }
     yield HomeInitialState();
   }

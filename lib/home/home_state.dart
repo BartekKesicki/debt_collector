@@ -21,3 +21,9 @@ class MyLoansInitialState extends HomeState { }
 class SettingsInitialState extends HomeState { }
 
 class BackButtonState extends HomeState { }
+
+class BillsPageState extends HomeState { }
+
+class SettlementsPageState extends HomeState { }
+
+class CommunityPageState extends HomeState { }

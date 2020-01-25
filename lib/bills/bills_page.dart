@@ -14,7 +14,7 @@ class _BillsPageState extends State<BillsPage> {
   @override
   Widget build(BuildContext context) {
     //todo implement widget
-    return Container();
+    return Text("BILLS");
   }
 
 }

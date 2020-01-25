@@ -21,3 +21,9 @@ class InitMyLoansPageEvent extends HomeEvent { }
 class InitSettingsPageEvent extends HomeEvent { }
 
 class BackButtonEvent extends HomeEvent { }
+
+class InitBillsPageEvent extends HomeEvent { }
+
+class InitSettlementsPageEvent extends HomeEvent { }
+
+class InitCommunityPageEvent extends HomeEvent { }

@@ -14,7 +14,7 @@ class _SettlementsStatePage extends State<SettlementsPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Text("SETTLEMENTS");
     //todo fill page
   }
 
