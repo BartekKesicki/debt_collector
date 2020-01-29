@@ -1,5 +1,7 @@
 import 'package:bloc/bloc.dart';
+import 'package:debt_collector/db/database_helper.dart';
 import 'package:debt_collector/login/bloc.dart';
+import 'package:debt_collector/model/user.dart';
 import 'package:debt_collector/utils/app_strings.dart';
 
 class LoginBloc extends Bloc<LoginEvent, LoginState> {
@@ -7,10 +9,8 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
   @override
   InitialLoginState get initialState => InitialLoginState(null, null);
 
-  //mocked data
-  final login = "flutter.bloc@softwarehut.com";
-  final pass = "Password";
   final passwordMinLength = 6;
+  DatabaseHelper _databaseHelper = DatabaseHelper.instance;
 
   @override
   Stream<LoginState> mapEventToState(LoginEvent event) async* {
@@ -41,10 +41,15 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     }
   }
 
-  Future<bool> _checkCredentials(String login, String password) {
-    return Future.delayed(Duration(seconds: 1), () {
-      return login == this.login && password == pass;
-    });
+  Future<bool> _checkCredentials(String login, String password) async {
+    final users = await _databaseHelper.queryAllUsersRows();
+    for (int i = 0; i < (users.length - 1); i++) {
+      User user = User.fromMap(users[i]);
+      if (user.login == login && user.password == password) {
+        return true;
+      }
+    }
+    return false;
   }
 
   bool _validateEmail(String login) {

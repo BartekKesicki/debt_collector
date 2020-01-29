@@ -62,7 +62,7 @@ class _HomePageState extends State<HomePage> {
                   } else if (homeState is SettingsInitialState) {
                     return SettingsPage();
                   }
-                  return buildMainWidget(context);
+                  return MainPage();
                 },
               ),
           ),
@@ -84,13 +84,6 @@ class _HomePageState extends State<HomePage> {
   Future<bool> _onWillPop() async {
     _homeBloc.dispatch(BackButtonEvent());
     return true;
-  }
-
-  Widget buildMainWidget(BuildContext context) {
-    //todo build main widget
-    return Center(
-      child: Text("HOME"),
-    );
   }
 
   @override
