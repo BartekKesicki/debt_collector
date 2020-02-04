@@ -1,4 +1,5 @@
 import 'package:debt_collector/home/bloc.dart';
+import 'package:debt_collector/home/home_page_result_action.dart';
 import 'package:debt_collector/home/home_sub_page_enum.dart';
 import 'package:debt_collector/main/bloc.dart';
 import 'package:debt_collector/my_debts/bloc.dart';
@@ -13,6 +14,8 @@ import 'package:circular_bottom_navigation/circular_bottom_navigation.dart';
 import 'package:circular_bottom_navigation/tab_item.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../main.dart';
+
 class HomePage extends StatefulWidget {
   HomePage({Key key}) : super(key: key);
 
@@ -20,7 +23,7 @@ class HomePage extends StatefulWidget {
   _HomePageState createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _HomePageState extends State<HomePage> implements HomePageResultAction {
 
   static int selectedPos = 2;
   CircularBottomNavigationController _navigationController = CircularBottomNavigationController(selectedPos);
@@ -62,7 +65,7 @@ class _HomePageState extends State<HomePage> {
                   } else if (homeState is MyLoansInitialState) {
                     return MyLoansPage();
                   } else if (homeState is SettingsInitialState) {
-                    return SettingsPage();
+                    return SettingsPage(homePageResultAction: this);
                   }
                   return MainPage();
                 },
@@ -102,5 +105,11 @@ class _HomePageState extends State<HomePage> {
   void dispose() {
     _homeBloc.dispose();
     super.dispose();
+  }
+
+  @override
+  void onLogoutClicked() {
+    Navigator.of(context)
+        .pushReplacement(MaterialPageRoute(builder: (context) => LoginPage()));
   }
 }

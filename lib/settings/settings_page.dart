@@ -1,3 +1,4 @@
+import 'package:debt_collector/home/home_page_result_action.dart';
 import 'package:debt_collector/settings/bloc.dart';
 import 'package:debt_collector/utils/app_strings.dart';
 import 'package:debt_collector/utils/app_styles.dart';
@@ -5,10 +6,10 @@ import 'package:debt_collector/utils/app_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../main.dart';
-
 class SettingsPage extends StatefulWidget {
-  SettingsPage({Key key}) : super(key: key);
+  SettingsPage({Key key, this.homePageResultAction}) : super(key: key);
+
+  final HomePageResultAction homePageResultAction;
 
   @override
   State<StatefulWidget> createState() => _SettingsPageState();
@@ -18,8 +19,11 @@ class _SettingsPageState extends State<SettingsPage> {
 
   final settingsBloc = SettingsBloc();
 
+  HomePageResultAction _homePageResultAction;
+
   @override
   Widget build(BuildContext context) {
+    _homePageResultAction = widget.homePageResultAction;
     return Scaffold(
       body: BlocListener(
         bloc: settingsBloc,
@@ -64,7 +68,6 @@ class _SettingsPageState extends State<SettingsPage> {
   }
 
   redirectToLogoutPage(BuildContext context) {
-    Navigator.of(context)
-        .pushReplacement(MaterialPageRoute(builder: (context) => LoginPage()));
+    _homePageResultAction.onLogoutClicked();
   }
 }
