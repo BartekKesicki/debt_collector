@@ -1,3 +1,5 @@
+import 'package:debt_collector/bills/new_debt/new_debt_page.dart';
+import 'package:debt_collector/bills/new_loan/new_loan_page.dart';
 import 'package:debt_collector/home/bloc.dart';
 import 'package:debt_collector/home/home_page_result_action.dart';
 import 'package:debt_collector/home/home_sub_page_enum.dart';
@@ -5,8 +7,6 @@ import 'package:debt_collector/main/bloc.dart';
 import 'package:debt_collector/my_debts/bloc.dart';
 import 'package:debt_collector/my_loans/bloc.dart';
 import 'package:debt_collector/my_profile/bloc.dart';
-import 'package:debt_collector/new_debt/bloc.dart';
-import 'package:debt_collector/new_loan/bloc.dart';
 import 'package:debt_collector/settings/bloc.dart';
 import 'package:debt_collector/utils/app_strings.dart';
 import 'package:flutter/material.dart';
@@ -49,7 +49,6 @@ class _HomePageState extends State<HomePage> implements HomePageResultAction {
               child: BlocBuilder(
                 bloc: _homeBloc,
                 builder: (BuildContext context, HomeState homeState) {
-                  //todo change pages
                   if (homeState is BackButtonState) {
                     //do nothing
                   } else if (homeState is NewDebtInitialState) {
