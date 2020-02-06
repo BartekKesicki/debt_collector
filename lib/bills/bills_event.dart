@@ -6,4 +6,8 @@ abstract class BillsEvent extends Equatable {
 
 class InitialBillsEvent extends BillsEvent { }
 
+class RedirectToNewLoanEvent extends BillsEvent { }
+
+class RedirectToNewDebtEvent extends BillsEvent { }
+
 //todo add other events

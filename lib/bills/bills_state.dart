@@ -6,4 +6,8 @@ abstract class BillsState extends Equatable {
 
 class InitialBillsState extends BillsState { }
 
+class RedirectToNewLoanState extends BillsState { }
+
+class RedirectToNewDebtState extends BillsState { }
+
 //todo add other states
