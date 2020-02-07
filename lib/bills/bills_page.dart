@@ -35,11 +35,7 @@ class _BillsPageState extends State<BillsPage> {
           child: BlocBuilder(
               bloc: _billsBloc,
               builder : (BuildContext context, BillsState billsState) {
-                if (billsState is InitialBillsState) {
-                  return _buildInitialBillsPage();
-                } else {
-                  return Container();
-                }
+                return _buildInitialBillsPage();
               }
           ),
         ),

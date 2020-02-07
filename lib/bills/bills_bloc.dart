@@ -8,8 +8,13 @@ class BillsBloc extends Bloc<BillsEvent, BillsState> {
 
   @override
   Stream<BillsState> mapEventToState(BillsEvent event) async* {
-    yield InitialBillsState();
-    //todo check otehr states
+    if (event is RedirectToNewLoanEvent) {
+      yield RedirectToNewLoanState();
+    } else if (event is RedirectToNewDebtEvent) {
+      yield RedirectToNewDebtState();
+    } else {
+      yield InitialBillsState();
+    }
   }
 
 }
