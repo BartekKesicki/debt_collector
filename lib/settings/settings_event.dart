@@ -8,4 +8,6 @@ abstract class SettingsEvent extends Equatable {
 
 class ScreenSettingsEvent extends SettingsEvent { }
 
+class PerformLogoutEvent extends SettingsEvent { }
+
 //todo fill events

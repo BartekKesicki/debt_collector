@@ -8,4 +8,6 @@ abstract class SettingsState extends Equatable {
 
 class ScreenSettingsState extends SettingsState { }
 
+class LogoutSettingsState extends SettingsState { }
+
 //todo fill states

@@ -8,6 +8,10 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
 
   @override
   Stream<SettingsState> mapEventToState(SettingsEvent event) async* {
-    yield ScreenSettingsState();
+    if (event is PerformLogoutEvent) {
+      yield LogoutSettingsState();
+    } else if (event is ScreenSettingsState) {
+      yield ScreenSettingsState();
+    }
   }
 }

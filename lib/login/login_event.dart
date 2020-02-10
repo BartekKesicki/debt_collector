@@ -13,13 +13,6 @@ class SubmitLoginEvent extends LoginEvent {
   SubmitLoginEvent([this.login, this.password]) : super([login, password]);
 }
 
-class ValidateLoginEvent extends LoginEvent {
-  final String login;
-  final String password;
-
-  ValidateLoginEvent([this.login, this.password]) : super([login, password]);
-}
-
 class RedirectToRegisterPageEvent extends LoginEvent { }
 
 class BackButtonEvent extends LoginEvent { }
