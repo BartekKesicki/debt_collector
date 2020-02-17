@@ -1,6 +1,6 @@
-import 'package:debt_collector/my_debts/my_debts_state.dart';
 import 'package:bloc/bloc.dart';
 import 'my_debts_event.dart';
+import 'my_debts_state.dart';
 
 class MyDebtsBloc extends Bloc<MyDebtsEvent, MyDebtsState> {
   @override

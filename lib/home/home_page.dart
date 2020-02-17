@@ -4,10 +4,9 @@ import 'package:debt_collector/home/bloc.dart';
 import 'package:debt_collector/home/home_page_result_action.dart';
 import 'package:debt_collector/home/home_sub_page_enum.dart';
 import 'package:debt_collector/main/bloc.dart';
-import 'package:debt_collector/my_debts/bloc.dart';
-import 'package:debt_collector/my_loans/bloc.dart';
 import 'package:debt_collector/my_profile/bloc.dart';
 import 'package:debt_collector/settings/bloc.dart';
+import 'package:debt_collector/settlements/settlememts_page.dart';
 import 'package:debt_collector/utils/app_strings.dart';
 import 'package:flutter/material.dart';
 import 'package:circular_bottom_navigation/circular_bottom_navigation.dart';
@@ -59,10 +58,8 @@ class _HomePageState extends State<HomePage> implements HomePageResultAction {
                     return MainPage();
                   } else if (homeState is MyProfileInitialState) {
                     return MyProfilePage();
-                  } else if (homeState is MyDebtsInitialState) {
-                    return MyDebtsPage();
-                  } else if (homeState is MyLoansInitialState) {
-                    return MyLoansPage();
+                  } else if (homeState is SettlementsPageState) {
+                    return SettlementsPage();
                   } else if (homeState is SettingsInitialState) {
                     return SettingsPage(homePageResultAction: this);
                   }

@@ -12,11 +12,7 @@ class InitNewLoanPageEvent extends HomeEvent { }
 
 class InitMyProfilePageEvent extends HomeEvent { }
 
-class InitMyDebtsPageEvent extends HomeEvent { }
-
 class InitHomePageEvent extends HomeEvent { }
-
-class InitMyLoansPageEvent extends HomeEvent { }
 
 class InitSettingsPageEvent extends HomeEvent { }
 

@@ -14,10 +14,6 @@ class NewLoanInitialState extends HomeState { }
 
 class MyProfileInitialState extends HomeState { }
 
-class MyDebtsInitialState extends HomeState { }
-
-class MyLoansInitialState extends HomeState { }
-
 class SettingsInitialState extends HomeState { }
 
 class BackButtonState extends HomeState { }
