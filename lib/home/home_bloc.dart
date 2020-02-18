@@ -27,8 +27,9 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
       yield SettlementsPageState();
     } else if (event is InitCommunityPageEvent) {
       yield CommunityPageState();
+    } else {
+      yield HomeInitialState();
     }
-    yield HomeInitialState();
   }
 
 }
