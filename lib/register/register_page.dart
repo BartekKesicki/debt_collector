@@ -68,7 +68,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   decoration: AppStyles.createTextFieldDecoration(
                       AppStrings.email,
                       registerState.userErrorMessage,
-                      AppStrings.email),
+                      null),
                   controller: _userTextController,
                   onChanged: (value) {
                     final registerBloc = BlocProvider.of<RegisterBloc>(context);
@@ -84,7 +84,8 @@ class _RegisterPageState extends State<RegisterPage> {
                   decoration: AppStyles.createTextFieldDecoration(
                       AppStrings.password,
                       registerState.passwordErrorMessage,
-                      AppStrings.password),
+                      null),
+                  obscureText: true,
                   controller: _passwordTextController,
                   onChanged: (value) {
                     final registerBloc = BlocProvider.of<RegisterBloc>(context);
@@ -100,7 +101,8 @@ class _RegisterPageState extends State<RegisterPage> {
                   decoration: AppStyles.createTextFieldDecoration(
                       AppStrings.confirmPassword,
                       registerState.confirmPasswordErrorMessage,
-                      AppStrings.confirmPassword),
+                      null),
+                  obscureText: true,
                   controller: _confirmPasswordTextController,
                   onChanged: (value) {
                     final registerBloc = BlocProvider.of<RegisterBloc>(context);

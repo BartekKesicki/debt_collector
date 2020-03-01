@@ -42,7 +42,7 @@ class _HomePageState extends State<HomePage> implements HomePageResultAction {
     return WillPopScope(
       onWillPop: _onWillPop,
       child: Scaffold(
-        body: SingleChildScrollView(
+        body: Container(
           child: BlocProvider(
               builder: (BuildContext context) => _homeBloc,
               child: BlocBuilder(

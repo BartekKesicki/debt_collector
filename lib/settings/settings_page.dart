@@ -24,15 +24,14 @@ class _SettingsPageState extends State<SettingsPage> {
   @override
   Widget build(BuildContext context) {
     _homePageResultAction = widget.homePageResultAction;
-    return Scaffold(
-      body: BlocListener(
-        bloc: settingsBloc,
-        listener: (BuildContext context, SettingsState state) {
-          if (state is LogoutSettingsState) {
-            redirectToLogoutPage(context);
-          }
-        },
-        child: BlocProvider(
+    return BlocListener(
+      bloc: settingsBloc,
+      listener: (BuildContext context, SettingsState state) {
+        if (state is LogoutSettingsState) {
+          redirectToLogoutPage(context);
+        }
+      },
+      child: BlocProvider(
           builder: (BuildContext context) => settingsBloc,
           child: BlocBuilder(
             bloc: settingsBloc,
@@ -40,7 +39,6 @@ class _SettingsPageState extends State<SettingsPage> {
               return _buildMainWidget();
             },
           )
-        ),
       ),
     );
   }
