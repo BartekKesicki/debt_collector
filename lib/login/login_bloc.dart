@@ -1,8 +1,10 @@
 import 'package:bloc/bloc.dart';
 import 'package:debt_collector/db/database_helper.dart';
+import 'package:debt_collector/db/shared_preferences_keys.dart';
 import 'package:debt_collector/login/bloc.dart';
 import 'package:debt_collector/model/user.dart';
 import 'package:debt_collector/utils/app_strings.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginBloc extends Bloc<LoginEvent, LoginState> {
 
@@ -18,8 +20,10 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       yield BackButtonState();
     } else if (event is SubmitLoginEvent) {
       yield LoginInProgressState();
-      final userExists = await _checkCredentials(event.login, event.password);
+      final userExists = await _checkCredentials(event.login.trimRight(), event.password.trimRight());
+      final SharedPreferences _sharedPreferences = await SharedPreferences.getInstance();
       if (userExists) {
+        _sharedPreferences.setString(SharedPreferencesKeys.USER_ID_SHARED_PREFERENCES_KEY, event.login);
         yield LoginResponseState(userExists);
       } else {
         yield InitialLoginState(AppStrings.incorrectEmailOrPasswordMessage, null);

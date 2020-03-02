@@ -24,7 +24,9 @@ class _MainPageState extends State<MainPage> {
           child: BlocBuilder(
             bloc: _mainBloc,
             builder: (BuildContext context, MainState state) {
-              if (state is ScreenMainState) {
+              if (state is InitialScreenMainState) {
+                _mainBloc.dispatch(ScreenMainEvent());
+              } else if (state is ScreenMainState) {
                 return _buildMainWidget(state.userName);
               }
               //todo check states
@@ -39,14 +41,18 @@ class _MainPageState extends State<MainPage> {
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: <Widget>[
-        Align(
-          alignment: Alignment.topRight,
-          child: Padding(
-            padding: EdgeInsets.only(right: AppDimens.widgetMediumPadding, top: AppDimens.widgetMediumPadding),
-            child: AppWidgets.buildWelcomeText("Welcome $username"),
-          ),
-        )
+        _buildUserNameLabel(username),
       ],
+    );
+  }
+
+  Widget _buildUserNameLabel(String username) {
+    return Align(
+      alignment: Alignment.topRight,
+      child: Padding(
+        padding: EdgeInsets.only(right: AppDimens.widgetMediumPadding, top: AppDimens.widgetMediumPadding),
+        child: AppWidgets.buildWelcomeText("Welcome $username"),
+      ),
     );
   }
 
