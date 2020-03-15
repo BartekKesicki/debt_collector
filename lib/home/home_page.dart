@@ -1,5 +1,7 @@
 import 'package:debt_collector/bills/new_debt/new_debt_page.dart';
 import 'package:debt_collector/bills/new_loan/new_loan_page.dart';
+import 'package:debt_collector/community/bloc.dart';
+import 'package:debt_collector/db/shared_preferences_keys.dart';
 import 'package:debt_collector/home/bloc.dart';
 import 'package:debt_collector/home/home_page_result_action.dart';
 import 'package:debt_collector/home/home_sub_page_enum.dart';
@@ -12,6 +14,7 @@ import 'package:flutter/material.dart';
 import 'package:circular_bottom_navigation/circular_bottom_navigation.dart';
 import 'package:circular_bottom_navigation/tab_item.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../main.dart';
 
@@ -56,8 +59,8 @@ class _HomePageState extends State<HomePage> implements HomePageResultAction {
                     return NewLoanPage();
                   } else if (homeState is HomeInitialState) {
                     return MainPage();
-                  } else if (homeState is MyProfileInitialState) {
-                    return MyProfilePage();
+                  } else if (homeState is CommunityPageState) {
+                    return CommunityPage();
                   } else if (homeState is SettlementsPageState) {
                     return SettlementsPage();
                   } else if (homeState is SettingsInitialState) {
@@ -104,7 +107,9 @@ class _HomePageState extends State<HomePage> implements HomePageResultAction {
   }
 
   @override
-  void onLogoutClicked() {
+  void onLogoutClicked() async {
+    final _sharedPreferences = await SharedPreferences.getInstance();
+    _sharedPreferences.setString(SharedPreferencesKeys.USER_ID_SHARED_PREFERENCES_KEY, "");
     Navigator.of(context)
         .pushReplacement(MaterialPageRoute(builder: (context) => LoginPage()));
   }
