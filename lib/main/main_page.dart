@@ -42,6 +42,7 @@ class _MainPageState extends State<MainPage> {
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: <Widget>[
         _buildUserNameLabel(username),
+        _buildPeriodTopLabel()
       ],
     );
   }
@@ -52,6 +53,15 @@ class _MainPageState extends State<MainPage> {
       child: Padding(
         padding: EdgeInsets.only(right: AppDimens.widgetMediumPadding, top: AppDimens.widgetMediumPadding),
         child: AppWidgets.buildWelcomeText("Welcome $username"),
+      ),
+    );
+  }
+
+  Widget _buildPeriodTopLabel() {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Center(
+        child: AppWidgets.buildTitleLabel("APRIL 2020"),
       ),
     );
   }

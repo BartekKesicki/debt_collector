@@ -21,6 +21,14 @@ class AppWidgets {
     );
   }
 
+  static Text buildTitleLabel(String text) {
+    return Text(text,
+      style: TextStyle(color: Colors.black,
+          fontSize: AppDimens.topLabelsFontSize,
+          fontWeight: FontWeight.bold),
+    );
+  }
+
   static RaisedButton createRaisedButton(String text, VoidCallback callback) {
     return RaisedButton(
       color: Colors.green,

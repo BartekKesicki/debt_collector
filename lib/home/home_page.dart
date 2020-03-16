@@ -1,3 +1,4 @@
+import 'package:debt_collector/bills/bills_page.dart';
 import 'package:debt_collector/bills/new_debt/new_debt_page.dart';
 import 'package:debt_collector/bills/new_loan/new_loan_page.dart';
 import 'package:debt_collector/community/bloc.dart';
@@ -6,7 +7,6 @@ import 'package:debt_collector/home/bloc.dart';
 import 'package:debt_collector/home/home_page_result_action.dart';
 import 'package:debt_collector/home/home_sub_page_enum.dart';
 import 'package:debt_collector/main/bloc.dart';
-import 'package:debt_collector/my_profile/bloc.dart';
 import 'package:debt_collector/settings/bloc.dart';
 import 'package:debt_collector/settlements/settlememts_page.dart';
 import 'package:debt_collector/utils/app_strings.dart';
@@ -34,7 +34,7 @@ class _HomePageState extends State<HomePage> implements HomePageResultAction {
     TabItem(Icons.assessment, AppStrings.homePageBillsLabel, Colors.blue, labelStyle: TextStyle(color: Colors.red, fontWeight: FontWeight.bold)),
     TabItem(Icons.assignment_late, AppStrings.homePageSettlementLabel, Colors.blue, labelStyle: TextStyle(color: Colors.red, fontWeight: FontWeight.bold)),
     TabItem(Icons.home, AppStrings.homePageHomeLabel, Colors.blue, labelStyle: TextStyle(color: Colors.red, fontWeight: FontWeight.bold)),
-    TabItem(Icons.person, AppStrings.homePageCommunityLabel, Colors.blue, labelStyle: TextStyle(color: Colors.red, fontWeight: FontWeight.bold)),
+    TabItem(Icons.people, AppStrings.homePageCommunityLabel, Colors.blue, labelStyle: TextStyle(color: Colors.red, fontWeight: FontWeight.bold)),
     TabItem(Icons.settings, AppStrings.homePageSettingsLabel, Colors.blue, labelStyle: TextStyle(color: Colors.red, fontWeight: FontWeight.bold)),
   ]);
 
@@ -65,6 +65,8 @@ class _HomePageState extends State<HomePage> implements HomePageResultAction {
                     return SettlementsPage();
                   } else if (homeState is SettingsInitialState) {
                     return SettingsPage(homePageResultAction: this);
+                  } else if (homeState is BillsPageState) {
+                    return BillsPage();
                   }
                   return MainPage();
                 },
