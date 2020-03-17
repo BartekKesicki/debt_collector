@@ -3,6 +3,7 @@ import 'package:debt_collector/utils/app_dimens.dart';
 import 'package:debt_collector/utils/app_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:date_format/date_format.dart';
 
 class MainPage extends StatefulWidget {
   MainPage({Key key}) : super(key: key);
@@ -14,6 +15,8 @@ class MainPage extends StatefulWidget {
 class _MainPageState extends State<MainPage> {
 
   final _mainBloc = MainBloc();
+  final _monthNames = ["JANUARY", "FEBRUARY", "MARCH", "APRIL", "MAY", "JUNE",
+    "JULY", "AUGUST", "SEPTEMBER", "OCTOBER", "NOVEMBER", "DECEMBER"];
 
   @override
   Widget build(BuildContext context) {
@@ -58,10 +61,11 @@ class _MainPageState extends State<MainPage> {
   }
 
   Widget _buildPeriodTopLabel() {
+    final now = DateTime.now();
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Center(
-        child: AppWidgets.buildTitleLabel("APRIL 2020"),
+        child: AppWidgets.buildTitleLabel("${_monthNames[now.month - 1]} ${now.year}"),
       ),
     );
   }
