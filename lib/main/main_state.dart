@@ -10,8 +10,9 @@ class InitialScreenMainState extends MainState { }
 
 class ScreenMainState extends MainState {
   final String userName;
+  final String saldo;
 
-  ScreenMainState(this.userName);
+  ScreenMainState(this.userName, this.saldo);
 }
 
 //todo fill states

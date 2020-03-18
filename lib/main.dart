@@ -83,7 +83,7 @@ class _LoginPageState extends State<LoginPage> {
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
         AppStyles.withTopBelowPadding(
-            AppWidgets.buildTopLabel(AppStrings.loginTopLabel),
+            AppWidgets.buildTitleLabel(AppStrings.loginTopLabel),
             AppDimens.topBelowLabelsValue),
         AppStyles.withAllPadding(
             TextField(

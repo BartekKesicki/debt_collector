@@ -61,7 +61,7 @@ class _RegisterPageState extends State<RegisterPage> {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: <Widget>[
             AppStyles.withTopBelowPadding(
-                AppWidgets.buildTopLabel(AppStrings.register),
+                AppWidgets.buildTitleLabel(AppStrings.register),
                 AppDimens.topBelowLabelsValue),
             AppStyles.withAllPadding(
                 TextField(

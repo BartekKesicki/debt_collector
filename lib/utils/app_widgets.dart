@@ -13,7 +13,7 @@ class AppWidgets {
     );
   }
 
-  static Text buildTopLabel(String text) {
+  static Text buildTitleLabel(String text) {
     return Text(text,
       style: TextStyle(color: Colors.black,
           fontSize: AppDimens.topLabelsFontSize,
@@ -21,10 +21,10 @@ class AppWidgets {
     );
   }
 
-  static Text buildTitleLabel(String text) {
+  static Text buildBigLabel(String text) {
     return Text(text,
       style: TextStyle(color: Colors.black,
-          fontSize: AppDimens.topLabelsFontSize,
+          fontSize: AppDimens.labelsBigSize,
           fontWeight: FontWeight.bold),
     );
   }
