@@ -14,8 +14,6 @@ class MainPage extends StatefulWidget {
 class _MainPageState extends State<MainPage> {
 
   final _mainBloc = MainBloc();
-  final _monthNames = ["JANUARY", "FEBRUARY", "MARCH", "APRIL", "MAY", "JUNE",
-    "JULY", "AUGUST", "SEPTEMBER", "OCTOBER", "NOVEMBER", "DECEMBER"];
 
   @override
   Widget build(BuildContext context) {
@@ -43,14 +41,8 @@ class _MainPageState extends State<MainPage> {
       mainAxisSize: MainAxisSize.max,
       children: <Widget>[
         _buildUserNameLabel(username),
-        Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: <Widget>[
-            _buildPeriodTopLabel(),
-            _buildSaldoLabel(saldo)
-          ],
-        ),
-        //todo next widgets
+        _buildSaldoLabel(saldo),
+        _buildStatisticsSection()
       ],
     );
   }
@@ -65,22 +57,45 @@ class _MainPageState extends State<MainPage> {
     );
   }
 
-  Widget _buildPeriodTopLabel() {
-    final now = DateTime.now();
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Center(
-        child: AppWidgets.buildTitleLabel("${_monthNames[now.month - 1]} ${now.year}"),
-      ),
-    );
-  }
-
   Widget _buildSaldoLabel(String saldo) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Center(
         child: AppWidgets.buildBigLabel("SALDO: $saldo"),
       ),
+    );
+  }
+
+  Widget _buildStatisticsSection() {
+    return GridView.count(
+      shrinkWrap: true,
+      primary: false,
+      padding: const EdgeInsets.all(20),
+      crossAxisSpacing: 10,
+      mainAxisSpacing: 10,
+      crossAxisCount: 2,
+      children: <Widget>[
+        Container(
+          padding: const EdgeInsets.all(8),
+          child: const Text("ONE TEXT1"),
+          color: Colors.green,
+        ),
+        Container(
+          padding: const EdgeInsets.all(8),
+          child: const Text("ONE TEXT2"),
+          color: Colors.blue,
+        ),
+        Container(
+          padding: const EdgeInsets.all(8),
+          child: const Text("ONE TEXT3"),
+          color: Colors.red,
+        ),
+        Container(
+          padding: const EdgeInsets.all(8),
+          child: const Text("ONE TEXT4"),
+          color: Colors.cyan,
+        ),
+      ],
     );
   }
 

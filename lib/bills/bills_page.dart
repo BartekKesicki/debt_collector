@@ -2,6 +2,7 @@ import 'package:debt_collector/bills/bills_bloc.dart';
 import 'package:debt_collector/bills/bills_state.dart';
 import 'package:debt_collector/bills/new_debt/bloc.dart';
 import 'package:debt_collector/bills/new_loan/bloc.dart';
+import 'package:debt_collector/utils/app_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -17,6 +18,8 @@ class BillsPage extends StatefulWidget {
 class _BillsPageState extends State<BillsPage> {
 
   final _billsBloc = BillsBloc();
+  final _monthNames = ["JANUARY", "FEBRUARY", "MARCH", "APRIL", "MAY", "JUNE",
+    "JULY", "AUGUST", "SEPTEMBER", "OCTOBER", "NOVEMBER", "DECEMBER"];
 
   @override
   Widget build(BuildContext context) {
@@ -44,8 +47,31 @@ class _BillsPageState extends State<BillsPage> {
   }
 
   Widget _buildInitialBillsPage() {
-    //todo fill page
-    return Container();
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      mainAxisSize: MainAxisSize.max,
+      children: <Widget>[
+        _buildPeriodTopLabel(),
+//        Column(
+//          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+//          children: <Widget>[
+//            _buildPeriodTopLabel(),
+//
+//          ],
+//        ),
+        //todo next widgets
+      ],
+    );
+  }
+
+  Widget _buildPeriodTopLabel() {
+    final now = DateTime.now();
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Center(
+        child: AppWidgets.buildTitleLabel("${_monthNames[now.month - 1]} ${now.year}"),
+      ),
+    );
   }
 
   void _redirectToNewDebtPage(BuildContext context) {
