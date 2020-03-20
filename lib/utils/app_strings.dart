@@ -31,6 +31,11 @@ class AppStrings {
   static const String homePageHomeLabel = "Home";
   static const String homePageCommunityLabel = "Community";
   static const String homePageSettingsLabel = "Settings";
+  static const String homeStatisticsDebtsLabel = "Debts: ";
+  static const String homeStatisticsLoansLabel = "Loans: ";
+  static const String homeStatisticsClientsLabel = "Clients: ";
+  static const String homeStatisticsDebtsInterestLabel = "Debt Intrests: ";
+  static const String homeStatisticsLoansInterestLabel = "Loan Intrests: ";
 
   // SETTINGS
   static const String settingsPageLogoutLabel = "LOGOUT";

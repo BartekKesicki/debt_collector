@@ -1,5 +1,6 @@
 import 'package:debt_collector/main/bloc.dart';
 import 'package:debt_collector/utils/app_dimens.dart';
+import 'package:debt_collector/utils/app_strings.dart';
 import 'package:debt_collector/utils/app_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -26,7 +27,7 @@ class _MainPageState extends State<MainPage> {
           if (state is InitialScreenMainState) {
             _mainBloc.dispatch(ScreenMainEvent());
           } else if (state is ScreenMainState) {
-            return _buildMainWidget(state.userName, state.saldo);
+            return _buildMainWidget(state.userName, state.saldo, state.totalDebts, state.totalLoans);
           }
           //todo check states
           return Container();
@@ -35,14 +36,14 @@ class _MainPageState extends State<MainPage> {
     );
   }
 
-  Widget _buildMainWidget(String username, String saldo) {
+  Widget _buildMainWidget(String username, String saldo, String totalDebts, String totalLoans) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       mainAxisSize: MainAxisSize.max,
       children: <Widget>[
         _buildUserNameLabel(username),
         _buildSaldoLabel(saldo),
-        _buildStatisticsSection()
+        _buildStatisticsSection(totalDebts, totalLoans)
       ],
     );
   }
@@ -66,7 +67,8 @@ class _MainPageState extends State<MainPage> {
     );
   }
 
-  Widget _buildStatisticsSection() {
+  Widget _buildStatisticsSection(String totalDebts, String totalLoans) {
+    //todo fill data
     return GridView.count(
       shrinkWrap: true,
       primary: false,
@@ -77,12 +79,12 @@ class _MainPageState extends State<MainPage> {
       children: <Widget>[
         Container(
           padding: const EdgeInsets.all(8),
-          child: const Text("ONE TEXT1"),
+          child: Center(child: Text("${AppStrings.homeStatisticsDebtsLabel} $totalDebts")),
           color: Colors.green,
         ),
         Container(
           padding: const EdgeInsets.all(8),
-          child: const Text("ONE TEXT2"),
+          child: Center(child: Text("${AppStrings.homeStatisticsLoansLabel} $totalLoans")),
           color: Colors.blue,
         ),
         Container(
