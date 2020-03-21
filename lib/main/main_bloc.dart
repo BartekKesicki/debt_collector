@@ -1,7 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:debt_collector/db/database_helper.dart';
 import 'package:debt_collector/db/shared_preferences_keys.dart';
-import 'package:debt_collector/model/debt.dart';
+import 'package:debt_collector/model/bill.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'main_event.dart';
@@ -16,7 +16,7 @@ class MainBloc extends Bloc<MainEvent, MainState> {
 
   @override
   Stream<MainState> mapEventToState(MainEvent event) async* {
-    final _debts = await _retrieveAllDebts();
+    final _debts = await _retrieveAllBills();
     final _userName = await _getUserName();
     final _saldo = await _calculateSaldo(_debts);
     final _totalDebts = await _calculateTotalDebts(_debts);
@@ -31,38 +31,38 @@ class MainBloc extends Bloc<MainEvent, MainState> {
     return _userName;
   }
 
-  Future<List<Debt>> _retrieveAllDebts() async {
-    List<Debt> _retrievedDebts = List();
-    final _debts = await _db.getAllDebts();
-    for (int i = 0; i < _debts.length; i++) {
-      Debt debt = Debt.fromMap(_debts[i]);
-      _retrievedDebts.add(debt);
+  Future<List<Bill>> _retrieveAllBills() async {
+    List<Bill> _retrievedBills = List();
+    final _bills = await _db.getAllBills();
+    for (int i = 0; i < _bills.length; i++) {
+      Bill bill = Bill.fromMap(_bills[i]);
+      _retrievedBills.add(bill);
     }
-    return _retrievedDebts;
+    return _retrievedBills;
   }
 
-  Future<double> _calculateSaldo(List<Debt> debts) async {
+  Future<double> _calculateSaldo(List<Bill> bills) async {
     double saldo = 0;
-    for (int i = 0; i < debts.length; i++) {
-      saldo += debts[i].value;
+    for (int i = 0; i < bills.length; i++) {
+      saldo += bills[i].value;
     }
     return saldo;
   }
 
-  Future<int> _calculateTotalDebts(List<Debt> debts) async {
+  Future<int> _calculateTotalDebts(List<Bill> bills) async {
     int debtsQuantity = 0;
-    for (int i = 0; i < debts.length; i++) {
-      if (debts[i].value < 0) {
+    for (int i = 0; i < bills.length; i++) {
+      if (bills[i].value < 0) {
         debtsQuantity++;
       }
     }
     return debtsQuantity;
   }
 
-  Future<int> _calculateTotalLoans(List<Debt> debts) async {
+  Future<int> _calculateTotalLoans(List<Bill> bills) async {
     int loansQuantity = 0;
-    for (int i = 0; i < debts.length; i++) {
-      if (debts[i].value > 0) {
+    for (int i = 0; i < bills.length; i++) {
+      if (bills[i].value > 0) {
         loansQuantity++;
       }
     }

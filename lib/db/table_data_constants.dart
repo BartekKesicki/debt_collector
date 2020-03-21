@@ -7,16 +7,16 @@ class TableDataConstants {
   static final String userTablePasswordColumnName = "Password";
 
   // DEBT
-  static final String debtTableName = "Debts";
-  static final String debtTableIdColumnName = "id";
-  static final String debtTableDescriptionColumnName = "description";
-  static final String debtTableDebtUserIdColumnName = "debtUserId";
-  static final String debtTableDebtorIdColumnName = "debtorId";
-  static final String debtTableValueColumnName = "value";
+  static final String billTableName = "Bills";
+  static final String billTableIdColumnName = "id";
+  static final String billTableDescriptionColumnName = "description";
+  static final String billTableDebtUserIdColumnName = "billUserId";
+  static final String billTableDebtorIdColumnName = "clientId";
+  static final String billTableValueColumnName = "value";
 
   // DEBTOR
-  static final String debtorTableName = "Debtors";
-  static final String debtorTableIdColumnName = "Id";
-  static final String debtorTableFullNameColumnName = "FullName";
-  static final String debtorTableCreationTimeColumnName = "CreationTime";
+  static final String clientTableName = "Clients";
+  static final String clientTableIdColumnName = "Id";
+  static final String clientTableFullNameColumnName = "FullName";
+  static final String clientTableCreationTimeColumnName = "CreationTime";
 }

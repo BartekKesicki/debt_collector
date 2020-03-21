@@ -5,10 +5,10 @@ class TableQueriesConstants {
       "${TableDataConstants.userTableLoginColumnName} TEXT, ${TableDataConstants.userTablePasswordColumnName} TEXT);";
   static final String SELECT_USERS_QUERY = "SELECT * FROM ${TableDataConstants.userTableName};";
 
-  static final String CREATE_DEBT_TABLE_QUERY = "CREATE TABLE ${TableDataConstants.debtTableName} (${TableDataConstants.debtTableIdColumnName} INTEGER PRIMARY KEY, "
-      "${TableDataConstants.debtTableDescriptionColumnName} TEXT, ${TableDataConstants.debtTableDebtUserIdColumnName} INTEGER, ${TableDataConstants.debtTableDebtorIdColumnName} INTEGER, "
-      "${TableDataConstants.debtTableValueColumnName} REAL);";
+  static final String CREATE_BILL_TABLE_QUERY = "CREATE TABLE ${TableDataConstants.billTableName} (${TableDataConstants.billTableIdColumnName} INTEGER PRIMARY KEY, "
+      "${TableDataConstants.billTableDescriptionColumnName} TEXT, ${TableDataConstants.billTableDebtUserIdColumnName} INTEGER, ${TableDataConstants.billTableDebtorIdColumnName} INTEGER, "
+      "${TableDataConstants.billTableValueColumnName} REAL);";
 
-  static final String CREATE_DEBTOR_TABLE_QUERY = "CREATE TABLE ${TableDataConstants.debtorTableName} (${TableDataConstants.debtorTableIdColumnName} INTEGER PRIMARY KEY, "
-      "${TableDataConstants.debtorTableFullNameColumnName} TEXT, ${TableDataConstants.debtorTableCreationTimeColumnName} INTEGER);";
+  static final String CREATE_CLIENT_TABLE_QUERY = "CREATE TABLE ${TableDataConstants.clientTableName} (${TableDataConstants.clientTableIdColumnName} INTEGER PRIMARY KEY, "
+      "${TableDataConstants.clientTableFullNameColumnName} TEXT, ${TableDataConstants.clientTableCreationTimeColumnName} INTEGER);";
 }

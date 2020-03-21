@@ -29,8 +29,8 @@ class DatabaseHelper {
 
   Future _onCreate(Database db, int version) async {
     await db.execute(TableQueriesConstants.CREATE_USER_TABLE_QUERY);
-    await db.execute(TableQueriesConstants.CREATE_DEBT_TABLE_QUERY);
-    await db.execute(TableQueriesConstants.CREATE_DEBTOR_TABLE_QUERY);
+    await db.execute(TableQueriesConstants.CREATE_BILL_TABLE_QUERY);
+    await db.execute(TableQueriesConstants.CREATE_CLIENT_TABLE_QUERY);
   }
 
   Future<List<Map<String, dynamic>>> queryAllUsersRows() async {
@@ -43,8 +43,8 @@ class DatabaseHelper {
     return await db.insert(TableDataConstants.userTableName, row);
   }
 
-  Future<List<Map<String, dynamic>>> getAllDebts() async {
+  Future<List<Map<String, dynamic>>> getAllBills() async {
     Database db = await instance.database;
-    return await db.query(TableDataConstants.debtTableName);
+    return await db.query(TableDataConstants.billTableName);
   }
 }
