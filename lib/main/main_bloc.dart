@@ -18,9 +18,11 @@ class MainBloc extends Bloc<MainEvent, MainState> {
   Stream<MainState> mapEventToState(MainEvent event) async* {
     final _debts = await _retrieveAllBills();
     final _userName = await _getUserName();
-    final _saldo = await _calculateSaldo(_debts);
-    final _totalDebts = await _calculateTotalDebts(_debts);
-    final _totalLoans = await _calculateTotalLoans(_debts);
+    final _saldo = _calculateSaldo(_debts);
+    final _totalDebts = _calculateTotalDebts(_debts);
+    final _totalLoans = _calculateTotalLoans(_debts);
+    final _totalDebtInterests = _calculateTotalDebtInterests(_debts);
+    final _totalLoanInterests = _calculateTotalLoanInterests(_debts);
     //todo fill states
     yield ScreenMainState(_userName, _saldo.toString(), _totalDebts.toString(), _totalLoans.toString());
   }
@@ -41,7 +43,7 @@ class MainBloc extends Bloc<MainEvent, MainState> {
     return _retrievedBills;
   }
 
-  Future<double> _calculateSaldo(List<Bill> bills) async {
+  double _calculateSaldo(List<Bill> bills) {
     double saldo = 0;
     for (int i = 0; i < bills.length; i++) {
       saldo += bills[i].value;
@@ -49,7 +51,7 @@ class MainBloc extends Bloc<MainEvent, MainState> {
     return saldo;
   }
 
-  Future<int> _calculateTotalDebts(List<Bill> bills) async {
+  int _calculateTotalDebts(List<Bill> bills) {
     int debtsQuantity = 0;
     for (int i = 0; i < bills.length; i++) {
       if (bills[i].value < 0) {
@@ -59,7 +61,7 @@ class MainBloc extends Bloc<MainEvent, MainState> {
     return debtsQuantity;
   }
 
-  Future<int> _calculateTotalLoans(List<Bill> bills) async {
+  int _calculateTotalLoans(List<Bill> bills) {
     int loansQuantity = 0;
     for (int i = 0; i < bills.length; i++) {
       if (bills[i].value > 0) {
@@ -69,4 +71,34 @@ class MainBloc extends Bloc<MainEvent, MainState> {
     return loansQuantity;
   }
 
+  double _calculateTotalDebtInterests(List<Bill> bills) {
+    double debtInterests = 0.0;
+    for (int i = 0; i < bills.length; i++) {
+      if (bills[i].value < 0 && bills[i].interest != 0) {
+        debtInterests += _calculateInterests(bills[i].creationTime, bills[i].interest, bills[i].value);
+      }
+    }
+    return debtInterests;
+  }
+
+  double _calculateTotalLoanInterests(List<Bill> bills) {
+    double loanInterests = 0.0;
+    for (int i = 0; i < bills.length; i++) {
+      if (bills[i].value < 0 && bills[i].interest != 0) {
+        loanInterests += _calculateInterests(bills[i].creationTime, bills[i].interest, bills[i].value);
+      }
+    }
+    return loanInterests;
+  }
+
+  double _calculateInterests(int billCreationTime, double percentage, double value) {
+    double interest = 0.0;
+    int daysInYears = 365;
+    var now = DateTime.now();
+    var billCreationDate = DateTime.fromMillisecondsSinceEpoch(billCreationTime);
+    var diff = now.difference(billCreationDate).inDays;
+    double interestsMultiplier = diff / daysInYears;
+    interest += value * percentage * interestsMultiplier;
+    return interest;
+  }
 }

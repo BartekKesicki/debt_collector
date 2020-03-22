@@ -6,8 +6,10 @@ class Bill {
   int billUserId;
   int clientId;
   double value;
+  double interest;
+  int creationTime;
 
-  Bill(this.id, this.description, this.billUserId, this.clientId, this.value);
+  Bill(this.id, this.description, this.billUserId, this.clientId, this.value, this.interest, this.creationTime);
 
   Map<String, dynamic> toMap() {
 
@@ -19,6 +21,8 @@ class Bill {
     map[TableDataConstants.billTableDebtUserIdColumnName] = billUserId;
     map[TableDataConstants.billTableDebtorIdColumnName] = clientId;
     map[TableDataConstants.billTableValueColumnName] = value;
+    map[TableDataConstants.billTableInterestColumnName] = interest;
+    map[TableDataConstants.billTableCreationTimeColumnName] = creationTime;
     return map;
   }
 
@@ -28,5 +32,7 @@ class Bill {
     this.billUserId = map[TableDataConstants.billTableDebtUserIdColumnName];
     this.clientId = map[TableDataConstants.billTableDebtorIdColumnName];
     this.value = map[TableDataConstants.billTableValueColumnName];
+    this.interest = map[TableDataConstants.billTableInterestColumnName];
+    this.creationTime = map[TableDataConstants.billTableCreationTimeColumnName];
   }
 }

@@ -13,6 +13,8 @@ class TableDataConstants {
   static final String billTableDebtUserIdColumnName = "billUserId";
   static final String billTableDebtorIdColumnName = "clientId";
   static final String billTableValueColumnName = "value";
+  static final String billTableInterestColumnName = "Interest";
+  static final String billTableCreationTimeColumnName = "creationTime";
 
   // DEBTOR
   static final String clientTableName = "Clients";
