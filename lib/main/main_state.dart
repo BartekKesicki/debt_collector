@@ -13,8 +13,10 @@ class ScreenMainState extends MainState {
   final String saldo;
   final String totalDebts;
   final String totalLoans;
+  final String debtInterests;
+  final String loanInterests;
 
-  ScreenMainState(this.userName, this.saldo, this.totalDebts, this.totalLoans);
+  ScreenMainState(this.userName, this.saldo, this.totalDebts, this.totalLoans, this.debtInterests, this.loanInterests);
 }
 
 //todo fill states

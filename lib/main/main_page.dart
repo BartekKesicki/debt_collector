@@ -27,7 +27,7 @@ class _MainPageState extends State<MainPage> {
           if (state is InitialScreenMainState) {
             _mainBloc.dispatch(ScreenMainEvent());
           } else if (state is ScreenMainState) {
-            return _buildMainWidget(state.userName, state.saldo, state.totalDebts, state.totalLoans);
+            return _buildMainWidget(state.userName, state.saldo, state.totalDebts, state.totalLoans, state.debtInterests, state.loanInterests);
           }
           //todo check states
           return Container();
@@ -36,14 +36,14 @@ class _MainPageState extends State<MainPage> {
     );
   }
 
-  Widget _buildMainWidget(String username, String saldo, String totalDebts, String totalLoans) {
+  Widget _buildMainWidget(String username, String saldo, String totalDebts, String totalLoans, String debtInterests, String loanInterests) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       mainAxisSize: MainAxisSize.max,
       children: <Widget>[
         _buildUserNameLabel(username),
         _buildSaldoLabel(saldo),
-        _buildStatisticsSection(totalDebts, totalLoans)
+        _buildStatisticsSection(totalDebts, totalLoans, debtInterests, loanInterests)
       ],
     );
   }
@@ -67,7 +67,7 @@ class _MainPageState extends State<MainPage> {
     );
   }
 
-  Widget _buildStatisticsSection(String totalDebts, String totalLoans) {
+  Widget _buildStatisticsSection(String totalDebts, String totalLoans, String debtInterests, String loanInterests) {
     //todo fill data
     return GridView.count(
       shrinkWrap: true,
@@ -89,12 +89,12 @@ class _MainPageState extends State<MainPage> {
         ),
         Container(
           padding: const EdgeInsets.all(8),
-          child: const Text("ONE TEXT3"),
+          child: Center(child: Text("${AppStrings.homeStatisticsDebtsInterestLabel} $debtInterests")),
           color: Colors.red,
         ),
         Container(
           padding: const EdgeInsets.all(8),
-          child: const Text("ONE TEXT4"),
+          child: Center(child: Text("${AppStrings.homeStatisticsLoansInterestLabel} $loanInterests")),
           color: Colors.cyan,
         ),
       ],
