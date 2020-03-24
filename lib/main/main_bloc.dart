@@ -2,6 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:debt_collector/db/database_helper.dart';
 import 'package:debt_collector/db/shared_preferences_keys.dart';
 import 'package:debt_collector/model/bill.dart';
+import 'package:debt_collector/model/client.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'main_event.dart';
@@ -19,12 +20,13 @@ class MainBloc extends Bloc<MainEvent, MainState> {
     final _debts = await _retrieveAllBills();
     final _userName = await _getUserName();
     final _saldo = _calculateSaldo(_debts);
+    final _clients = await _getClientsQuantity();
     final _totalDebts = _calculateTotalDebts(_debts);
     final _totalLoans = _calculateTotalLoans(_debts);
     final _totalDebtInterests = _calculateTotalDebtInterests(_debts);
     final _totalLoanInterests = _calculateTotalLoanInterests(_debts);
     //todo fill states
-    yield ScreenMainState(_userName, _saldo.toString(), _totalDebts.toString(), _totalLoans.toString(), _totalDebtInterests.toString(), _totalLoanInterests.toString());
+    yield ScreenMainState(_userName, _saldo.toString(), _clients.toString(), _totalDebts.toString(), _totalLoans.toString(), _totalDebtInterests.toString(), _totalLoanInterests.toString());
   }
 
   Future<String> _getUserName() async {
@@ -49,6 +51,11 @@ class MainBloc extends Bloc<MainEvent, MainState> {
       saldo += bills[i].value;
     }
     return saldo;
+  }
+
+  Future<int> _getClientsQuantity() async {
+    final clients = await _db.getAllClients();
+    return clients.length;
   }
 
   int _calculateTotalDebts(List<Bill> bills) {

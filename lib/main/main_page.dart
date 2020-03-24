@@ -27,7 +27,7 @@ class _MainPageState extends State<MainPage> {
           if (state is InitialScreenMainState) {
             _mainBloc.dispatch(ScreenMainEvent());
           } else if (state is ScreenMainState) {
-            return _buildMainWidget(state.userName, state.saldo, state.totalDebts, state.totalLoans, state.debtInterests, state.loanInterests);
+            return _buildMainWidget(state);
           }
           //todo check states
           return Container();
@@ -36,14 +36,19 @@ class _MainPageState extends State<MainPage> {
     );
   }
 
-  Widget _buildMainWidget(String username, String saldo, String totalDebts, String totalLoans, String debtInterests, String loanInterests) {
+  Widget _buildMainWidget(ScreenMainState state) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       mainAxisSize: MainAxisSize.max,
       children: <Widget>[
-        _buildUserNameLabel(username),
-        _buildSaldoLabel(saldo),
-        _buildStatisticsSection(totalDebts, totalLoans, debtInterests, loanInterests)
+        _buildUserNameLabel(state.userName),
+        Column(
+          children: <Widget>[
+            _buildSaldoLabel(state.saldo),
+            _buildClientsQuantityLabel(state.clients),
+          ],
+        ),
+        _buildStatisticsSection(state.totalDebts, state.totalLoans, state.debtInterests, state.loanInterests)
       ],
     );
   }
@@ -63,6 +68,15 @@ class _MainPageState extends State<MainPage> {
       padding: const EdgeInsets.all(8.0),
       child: Center(
         child: AppWidgets.buildBigLabel("SALDO: $saldo"),
+      ),
+    );
+  }
+
+  Widget _buildClientsQuantityLabel(String clients) {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Center(
+        child: AppWidgets.buildMediumLabel("Total clients: $clients"),
       ),
     );
   }
@@ -100,5 +114,4 @@ class _MainPageState extends State<MainPage> {
       ],
     );
   }
-
 }

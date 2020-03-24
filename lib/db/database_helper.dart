@@ -47,4 +47,9 @@ class DatabaseHelper {
     Database db = await instance.database;
     return await db.query(TableDataConstants.billTableName);
   }
+
+  Future<List<Map<String, dynamic>>> getAllClients() async {
+    Database db = await instance.database;
+    return await db.query(TableDataConstants.clientTableName);
+  }
 }

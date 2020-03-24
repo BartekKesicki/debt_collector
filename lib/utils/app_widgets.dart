@@ -22,9 +22,17 @@ class AppWidgets {
   }
 
   static Text buildBigLabel(String text) {
+    return _buildText(text, AppDimens.labelsBigSize);
+  }
+
+  static Text buildMediumLabel(String text) {
+    return _buildText(text, AppDimens.labelsMediumSize);
+  }
+
+  static Text _buildText(String text, double fontSize) {
     return Text(text,
       style: TextStyle(color: Colors.black,
-          fontSize: AppDimens.labelsBigSize,
+          fontSize: fontSize,
           fontWeight: FontWeight.bold),
     );
   }
